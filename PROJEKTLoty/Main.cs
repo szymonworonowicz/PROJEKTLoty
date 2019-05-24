@@ -9,7 +9,7 @@ namespace projektv2
 { 
     class Main
     {
-        static Teren[,] mapa = new Teren[100,100];//kratka 100 km
+        static readonly Teren[,] mapa = new Teren[100,100];//kratka 100 km
         private LinkedList<ObjektLatajacy> flying;
         static readonly List<Lotnisko> lotniska = new List<Lotnisko>();
         static Main()
@@ -81,11 +81,11 @@ namespace projektv2
                 flying.AddLast(latajacy);
             }
         }
-        public void run()
+        public void Run()
         {
             //transform pozycji statku
         }
-        private void wyswietlmape()
+        private void Wyswietlmape()
         {
             //wyswietla mape
         }

@@ -8,39 +8,64 @@ namespace projektv2
 {
     abstract class ObjektLatajacy
     {
-        protected int x, y, z,przelot,predkosc;
+        protected int x, y, z ,przelot , predkosc;
         protected double kat;
-        protected Lotnisko Start, Finish;
+        protected Lotnisko _Start=null, _Finish=null;
         public ObjektLatajacy(List<Lotnisko> lotniska)
         {
-            LosujTrase(lotniska);
+            _Start=LosujLotnisko(lotniska);
+            x = _Start.X;
+            y = _Start.Y;
+            z = 0;
+            _Finish = LosujLotnisko(lotniska);
         }
-        private static void LosujTrase(List<Lotnisko> lotniska)
+        private  Lotnisko LosujLotnisko(List<Lotnisko> lotniska)
+        {
+            Random rand = new Random();
+            int i=0;
+            do
+            {
+                i = rand.Next(0, lotniska.Count - 1);
+            } while (_Start == lotniska[i]);
+            return lotniska[i] ;
+        }
+        public void Run()//transform pozycji
+        {
+            bool Czy_wystartowal = false;
+            if (z < przelot)
+                Start();
+            else if (z == przelot)
+            {
+                Czy_wystartowal = true;
+                Lot();
+            } 
+            else if(Czy_wystartowal==true)
+                Finish();
+        }
+
+        private void Lot()
         {
             
         }
-        public void run()//transform pozycji
-        {
 
-        }
-        public Tuple<int,int> przewidzpozycje(ObjektLatajacy objekt)
+        public Tuple<int,int> Przewidzpozycje(ObjektLatajacy objekt)
         {
             //za 3 tiki
             return new Tuple<int, int>(1,1);
         }
-        public void zblizenie()
+        public void Zblizenie()
         {
             //zmiana awaryjna kursu
         }
-        public void jakzmienickurs()
+        public void Jakzmienickurs()
         {
 
         }
-        private  void start()
+        private  void Start()
         {
 
         }
-        private void finish()
+        private void Finish()
         {
 
         }

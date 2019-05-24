@@ -8,7 +8,8 @@ namespace projektv2
 {
     abstract class ObjektLatajacy
     {
-        protected int x, y, z;
+        protected int x, y, z,przelot,predkosc;
+        protected double kat;
         protected Lotnisko Start, Finish;
         public ObjektLatajacy(int _x,int _y,int _z, Lotnisko _start , Lotnisko _finish)
         {
@@ -16,11 +17,13 @@ namespace projektv2
             this.y = _y;
             this.z = _z;
             Start = _start;
+            Finish = _finish;
+
 
         }
         public Tuple<Lotnisko,Lotnisko> LosujTrase(LinkedList<Lotnisko> lotniska)
         {
-            //randomowo loswanie 
+            
             
             return new Tuple<Lotnisko, Lotnisko>(new Lotnisko(),new Lotnisko());
         }

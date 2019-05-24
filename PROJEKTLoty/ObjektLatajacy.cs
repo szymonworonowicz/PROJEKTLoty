@@ -11,21 +11,13 @@ namespace projektv2
         protected int x, y, z,przelot,predkosc;
         protected double kat;
         protected Lotnisko Start, Finish;
-        public ObjektLatajacy(int _x,int _y,int _z, Lotnisko _start , Lotnisko _finish)
+        public ObjektLatajacy(List<Lotnisko> lotniska)
         {
-            this.x = _x;
-            this.y = _y;
-            this.z = _z;
-            Start = _start;
-            Finish = _finish;
-
-
+            LosujTrase(lotniska);
         }
-        public Tuple<Lotnisko,Lotnisko> LosujTrase(LinkedList<Lotnisko> lotniska)
+        private static void LosujTrase(List<Lotnisko> lotniska)
         {
             
-            
-            return new Tuple<Lotnisko, Lotnisko>(new Lotnisko(),new Lotnisko());
         }
         public void run()//transform pozycji
         {

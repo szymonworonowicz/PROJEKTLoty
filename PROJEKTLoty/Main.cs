@@ -11,7 +11,7 @@ namespace projektv2
     {
         static Teren[,] mapa = new Teren[100,100];//kratka 100 km
         private LinkedList<ObjektLatajacy> flying;
-        static LinkedList<Lotnisko> lotniska = new LinkedList<Lotnisko>();
+        static readonly List<Lotnisko> lotniska = new List<Lotnisko>();
         static Main()
         {
             for (int i = 0; i < 100; i++)
@@ -25,7 +25,7 @@ namespace projektv2
                     int y = Convert.ToInt16(str.ReadLine());
                     string nazwa = str.ReadLine();
                     Lotnisko nowe = new Lotnisko(x, y, nazwa);
-                    lotniska.AddLast(nowe);
+                    lotniska.Add(nowe);
                     mapa[x, y].lotnisko = nowe;
                 }
             }
@@ -55,13 +55,30 @@ namespace projektv2
             flying = new LinkedList<ObjektLatajacy>();
             
         }
-        public  void LosujLoty()
+        public  void InicjalizacjaLotow()
         {
-            //random do losowania obiektow
+            Random rand = new Random();
+            ObjektLatajacy latajacy=null;
             for(int i =0;i<50;i++)
             {
-                //switchami dodawac do lsity
-                //dla kazdego losuj trase
+                int count = rand.Next(0, 3);
+                switch (count)
+                {
+                    case 0:
+                        latajacy = new Samolot(lotniska);
+                            break;
+                    case 1:
+                        latajacy = new Balon(lotniska);
+                        break;
+                    case 2:
+                        latajacy = new Awionetka(lotniska);
+                        break;
+                    case 3:
+                        latajacy = new Helikopter(lotniska);
+                        break;
+                        
+                }
+                flying.AddLast(latajacy);
             }
         }
         public void run()

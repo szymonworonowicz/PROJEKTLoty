@@ -8,12 +8,13 @@ namespace projektv2
 {
     class Teren
     {
-        public Lotnisko lotnisko;
-        public ObjektStatyczny objekt;
-        public Teren(Lotnisko _lotnisko,ObjektStatyczny objekt)
+        public Lotnisko lotnisko { get; set; }
+        public ObjektStatyczny objekt { get; set; }
+        public Teren()
         {
-            this.lotnisko = new Lotnisko(_lotnisko);
-            this.objekt = new ObjektStatyczny(objekt);
+
         }
+
+        
     }
 }

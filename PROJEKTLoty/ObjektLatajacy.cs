@@ -8,7 +8,7 @@ namespace projektv2
 {
     abstract class ObjektLatajacy
     {
-        protected int x, y, z ,przelot , predkosc;
+        protected int x, y, z ,przelot , predkosc,odl;
         protected double kat;
         protected Lotnisko _Start=null, _Finish=null;
         public ObjektLatajacy(List<Lotnisko> lotniska)
@@ -18,6 +18,7 @@ namespace projektv2
             y = _Start.Y;
             z = 0;
             _Finish = LosujLotnisko(lotniska);
+            odl=OdlLotniska();
         }
         private  Lotnisko LosujLotnisko(List<Lotnisko> lotniska)
         {
@@ -32,7 +33,7 @@ namespace projektv2
         public void Run()//transform pozycji
         {
             bool Czy_wystartowal = false;
-            if (z < przelot)
+            if (z < przelot && Czy_wystartowal==false)
                 Start();
             else if (z == przelot)
             {
@@ -41,13 +42,17 @@ namespace projektv2
             } 
             else if(Czy_wystartowal==true)
                 Finish();
+
         }
 
         private void Lot()
         {
             
         }
-
+        private int OdlLotniska()
+        {
+            return Math.Round(Math.Sqrt(Math.Pow(_Start.X-_Finish.X,2)+Math.Pow(_Start.Y-_Finish.Y,2))));
+        }
         public Tuple<int,int> Przewidzpozycje(ObjektLatajacy objekt)
         {
             //za 3 tiki
@@ -61,9 +66,15 @@ namespace projektv2
         {
 
         }
-        private  void Start()
+        private  void Start()//tick 20 s
         {
+            double time =20;//s
+            double skos=predkosc*time;
+            double changewys=Math.Round(Math.Sin(kat)*skos);
+            double changedis=Math.Round(Math.Cos(kat)*skos);
+            z+=changewys;
 
+            
         }
         private void Finish()
         {

@@ -11,10 +11,8 @@ namespace projektv2
         protected const double _kat = 45;
         protected const int _przelot = 10000;
         protected const int _predkosc = 700;
-        public Samolot(List<Lotnisko> lotniska):base(lotniska)
+        public Samolot(List<Lotnisko> lotniska):base(lotniska,_kat,_przelot)
         {
-            this.kat = _kat;
-            this.przelot = _przelot;
             this.predkosc = _predkosc;
         }
     }

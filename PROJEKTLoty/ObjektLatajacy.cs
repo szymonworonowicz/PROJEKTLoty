@@ -8,19 +8,24 @@ namespace projektv2
 {
     abstract class ObjektLatajacy
     {
-        protected int  z ,przelot , predkosc,odl;
-        protected double x,y;
+        protected int  predkosc,odl;
+        protected double x,y,z,przelot;
         protected double kat;
-        private double a_funkcja=0,b_funckja=0;
+        private double a_funkcja=0,b_funckja=0,kat_lotu=0,odl_ladowania=0;
         protected Lotnisko _Start=null, _Finish=null;
-        public ObjektLatajacy(List<Lotnisko> lotniska)
+        public ObjektLatajacy(List<Lotnisko> lotniska,double _kat,int _przelot)
         {
             _Start=LosujLotnisko(lotniska);
             x = _Start.X;
             y = _Start.Y;
+            kat=_kat*(Math.PI/180);
+            przelot=_przelot;
+            odl_ladowania=przelot*Math.Tan(kat);
             z = 0;
-            _Finish = LosujLotnisko(lotniska);
-            odl=OdlLotniska();
+            do
+	        {
+                _Finish=LosujLotnisko(lotniska);
+	        } while (OdlLotniska()>2*odl_ladowania);         
             funkcja();
         }
         private  Lotnisko LosujLotnisko(List<Lotnisko> lotniska)
@@ -38,33 +43,53 @@ namespace projektv2
             bool Czy_wystartowal = false;
             if (z < przelot && Czy_wystartowal==false)
                 Start();
-            else if (z == przelot)
+            else if (z == przelot && OdlodLadowania()==false)
             {
                 Czy_wystartowal = true;
                 Lot();
             } 
-            else if(Czy_wystartowal==true)
+            else if(Czy_wystartowal==true && OdlodLadowania()==true)
                 Finish();
 
         }
-        private void funkcja()
+        private void funkcja()//funkcja lotu gdy juz wlecial na przelot
         {
             this.a_funkcja=(_Start.Y-_Finish.Y)/(_Start.X-_Finish.Y);
             this.b_funckja=_Start.Y-a_funkcja*_Start.X;
+            this.kat_lotu=Math.Atan(a_funkcja*(Math.PI/180));//bo radiany
         }
         private void Lot()
         {
-            
+                Transform();
         }
-        private int OdlLotniska()
+        private double OdlLotniska()
         {
-            return Math.Round(Math.Sqrt(Math.Pow(_Start.X-_Finish.X,2)+Math.Pow(_Start.Y-_Finish.Y,2))));
+            return Math.Round(Math.Sqrt(Math.Pow(_Start.X-_Finish.X,2)+Math.Pow(_Start.Y-_Finish.Y,2)));
+        }
+        private bool OdlodLadowania()
+        {
+            if(Math.Sqrt(Math.Pow(this.x-_Finish.X,2)+Math.Pow(this.y-_Finish.Y,2))<odl_ladowania)
+                return true;
+            return false;
+        }
+        private void Transform()
+        {
+                double dx=predkosc*20*Math.Cos(kat_lotu);
+                double dy=predkosc*20*Math.Sin(kat_lotu);
+                if(_Start.X<_Finish.X)
+                    x+=dx;
+                else
+                    x-=dx;
+                if(_Start.Y<_Finish.Y)
+                    y+=dy;
+                else
+                    y-=dy;
         }
         public Tuple<int,int> Przewidzpozycje(ObjektLatajacy objekt)
         {
             //za 3 tiki
             return new Tuple<int, int>(1,1);
-        }
+        }   
         public void Zblizenie()
         {
             //zmiana awaryjna kursu
@@ -78,14 +103,17 @@ namespace projektv2
             double time =20;//s
             double skos=predkosc*time;
             double changewys=Math.Round(Math.Sin(kat)*skos);
-            double changedis=Math.Round(Math.Cos(kat)*skos);
             z+=changewys;
-
+            Transform();
             
         }
         private void Finish()
         {
-
+            double time =20;//s
+            double skos=predkosc*time;
+            double changewys=Math.Round(Math.Sin(kat)*skos);
+            z-=changewys;
+            Transform();
         }
     }
 }

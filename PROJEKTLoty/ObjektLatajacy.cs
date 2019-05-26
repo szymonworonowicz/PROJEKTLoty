@@ -8,8 +8,10 @@ namespace projektv2
 {
     abstract class ObjektLatajacy
     {
-        protected int x, y, z ,przelot , predkosc,odl;
+        protected int  z ,przelot , predkosc,odl;
+        protected double x,y;
         protected double kat;
+        private double a_funkcja=0,b_funckja=0;
         protected Lotnisko _Start=null, _Finish=null;
         public ObjektLatajacy(List<Lotnisko> lotniska)
         {
@@ -19,6 +21,7 @@ namespace projektv2
             z = 0;
             _Finish = LosujLotnisko(lotniska);
             odl=OdlLotniska();
+            funkcja();
         }
         private  Lotnisko LosujLotnisko(List<Lotnisko> lotniska)
         {
@@ -44,7 +47,11 @@ namespace projektv2
                 Finish();
 
         }
-
+        private void funkcja()
+        {
+            this.a_funkcja=(_Start.Y-_Finish.Y)/(_Start.X-_Finish.Y);
+            this.b_funckja=_Start.Y-a_funkcja*_Start.X;
+        }
         private void Lot()
         {
             

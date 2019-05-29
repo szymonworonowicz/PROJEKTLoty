@@ -85,10 +85,40 @@ namespace projektv2
                 else
                     y-=dy;
         }
+
+        /// <summary>
+        /// A method for predicting future position without changing object position
+        /// </summary>
+        /// /// <param name="tup">Position from which you'll get new predicted one</param>
+        /// <returns>Position after transform</returns>
+        private Tuple<int,int> TransformRet(Tuple<int, int> tup)
+        {
+            double dx = predkosc * 20 * Math.Cos(kat_lotu);
+            double dy = predkosc * 20 * Math.Sin(kat_lotu);
+            // position it returns
+            double xRet, yRet;
+            if (_Start.X < _Finish.X)
+                 xRet = x + dx;
+            else
+                xRet = x - dx;
+            if (_Start.Y < _Finish.Y)
+                yRet = y + dy;
+            else
+                yRet = y - dy;
+            return new Tuple<int, int>((int)xRet, (int)yRet);
+        }
+
+        /// <summary>
+        /// Gives predicted position 3 ticks in the future
+        /// </summary>
+        /// <param name="objekt">Flying object of which future position we seek and Yoda it sounds kind of like :-P</param>
+        /// <returns>Predicted position</returns>
         public Tuple<int,int> Przewidzpozycje(ObjektLatajacy objekt)
         {
             //za 3 tiki
-            return new Tuple<int, int>(1,1);
+            Tuple<int, int> position = new Tuple<int, int>((int)objekt.x, (int)objekt.y);
+            for(int i = 0; i < 3 ; i++ ) { position = TransformRet(position); }
+            return position;
         }   
         public void Zblizenie()
         {

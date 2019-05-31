@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace projektv2
-{
+namespace PROJEKTLoty
+{ 
     class Awionetka:ObjektLatajacy
     {
         protected const double _kat = 15;

@@ -1,15 +1,16 @@
-﻿using System;
+﻿using PROJEKTLoty;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace projektv2
+namespace PROJEKTLoty
 { 
-    class Main
+    public class Main
     {
-        static readonly Teren[,] mapa = new Teren[100,100];//kratka 100 km
+        static readonly Teren[,] mapa = new Teren[100,100];//kratka 100 km       
         private LinkedList<ObjektLatajacy> flying;
         static readonly List<Lotnisko> lotniska = new List<Lotnisko>();
         static Main()
@@ -19,6 +20,7 @@ namespace projektv2
                     mapa[i, j] = new Teren();
             try
             {
+                
                 using (StreamReader str = new StreamReader("lotniska.txt"))
                 {
                     int x = Convert.ToInt16(str.ReadLine());
@@ -29,6 +31,7 @@ namespace projektv2
                     mapa[x, y].lotnisko = nowe;
                 }
             }
+            
             catch (IOException)
             {
                 Console.WriteLine("brak pliku");
@@ -51,7 +54,7 @@ namespace projektv2
             }
         }
         public Main()
-        {
+        { 
             flying = new LinkedList<ObjektLatajacy>();
             
         }

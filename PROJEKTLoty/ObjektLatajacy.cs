@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace projektv2
+namespace PROJEKTLoty
 {
-    abstract class ObjektLatajacy
+    abstract class ObjektLatajacy:MainWindow
     {
         protected int  predkosc,odl;
         protected double x,y,z,przelot;

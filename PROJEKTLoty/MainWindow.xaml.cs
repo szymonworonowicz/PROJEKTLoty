@@ -20,9 +20,34 @@ namespace PROJEKTLoty
     /// </summary>
     public partial class MainWindow : Window
     {
+        Grid DynamicGrid = new Grid();
         public MainWindow()
         {
             InitializeComponent();
+            DynamicGrid.Width=1000;
+            DynamicGrid.Height=800;
+            DynamicGrid.HorizontalAlignment=HorizontalAlignment.Left;
+            DynamicGrid.VerticalAlignment=VerticalAlignment.Top;
+            DynamicGrid.ShowGridLines=true;
+            DynamicGrid.Background=new SolidColorBrush(Colors.Black);            
+            //Create Columns
+            for(int i=0;i<100;i++)
+                {
+                    ColumnDefinition column = new  ColumnDefinition();
+                    DynamicGrid.ColumnDefinitions.Add(column);                
+                }
+            //Create Rows
+            for (int i = 0; i < 100; i++)
+            {
+                RowDefinition row = new RowDefinition();
+                DynamicGrid.RowDefinitions.Add(row);
+            }
+            this.Content = DynamicGrid;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }

@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace PROJEKTLoty
 { 
@@ -54,9 +55,10 @@ namespace PROJEKTLoty
             }
         }
         public Main()
-        { 
+        {
+            Window window = new Window();
+            window.Show();
             flying = new LinkedList<ObjektLatajacy>();
-            
         }
         public  void InicjalizacjaLotow()
         {

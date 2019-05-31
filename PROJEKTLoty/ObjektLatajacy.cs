@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PROJEKTLoty
 {
-    abstract class ObjektLatajacy:MainWindow
+    abstract class ObjektLatajacy
     {
         protected int  predkosc,odl;
         protected double x,y,z,przelot;

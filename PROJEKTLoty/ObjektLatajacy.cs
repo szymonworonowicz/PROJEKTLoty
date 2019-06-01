@@ -12,6 +12,8 @@ namespace PROJEKTLoty
         protected double x,y,z,przelot;
         protected double kat;
         private double a_funkcja=0,b_funckja=0,kat_lotu=0,odl_ladowania=0;
+        public double X { get => x; protected set=>x=value; }
+        public double Y { get => x; protected set => x = value; }
         protected Lotnisko _Start=null, _Finish=null;
         public ObjektLatajacy(List<Lotnisko> lotniska,double _kat,int _przelot)
         {

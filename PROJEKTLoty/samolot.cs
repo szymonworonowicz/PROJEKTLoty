@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace PROJEKTLoty
 {
@@ -11,7 +12,8 @@ namespace PROJEKTLoty
         protected const double _kat = 45;
         protected const int _przelot = 10000;
         protected const int _predkosc = 700;
-        public Samolot(List<Lotnisko> lotniska):base(lotniska,_kat,_przelot)
+        static Brush kolor = Brushes.Brown;//kolor znaczka
+        public Samolot(List<Lotnisko> lotniska):base(lotniska,_kat,_przelot,kolor)
         {
             this.predkosc = _predkosc;
         }

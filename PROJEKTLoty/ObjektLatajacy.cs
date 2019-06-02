@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace PROJEKTLoty
 {
@@ -15,9 +16,11 @@ namespace PROJEKTLoty
         public double X { get => x; protected set=>x=value; }
         public double Y { get => x; protected set => x = value; }
         protected Lotnisko _Start=null, _Finish=null;
-        public ObjektLatajacy(List<Lotnisko> lotniska,double _kat,int _przelot)
+        public Brush kolor =null;//kolor znaczka
+        public ObjektLatajacy(List<Lotnisko> lotniska,double _kat,int _przelot,  Brush _kolor)
         {
             _Start=LosujLotnisko(lotniska);
+            this.kolor = _kolor;
             x = _Start.X;
             y = _Start.Y;
             kat=_kat*(Math.PI/180);
@@ -25,9 +28,9 @@ namespace PROJEKTLoty
             odl_ladowania=przelot*Math.Tan(kat);
             z = 0;
             do
-	        {
-                _Finish=LosujLotnisko(lotniska);
-	        } while (OdlLotniska()>2*odl_ladowania);         
+            {
+                _Finish = LosujLotnisko(lotniska);
+            } while (OdlLotniska() > 2 * odl_ladowania);
             funkcja();
         }
         private  Lotnisko LosujLotnisko(List<Lotnisko> lotniska)
@@ -36,7 +39,7 @@ namespace PROJEKTLoty
             int i=0;
             do
             {
-                i = rand.Next(0, lotniska.Count - 1);
+                i = rand.Next(0, lotniska.Count );
             } while (_Start == lotniska[i]);
             return lotniska[i] ;
         }
@@ -56,7 +59,15 @@ namespace PROJEKTLoty
         }
         private void funkcja()//funkcja lotu gdy juz wlecial na przelot
         {
-            this.a_funkcja=(_Start.Y-_Finish.Y)/(_Start.X-_Finish.Y);
+            try
+            {
+                this.a_funkcja = (_Start.Y - _Finish.Y) / (_Start.X - _Finish.X);
+            }
+            catch (DivideByZeroException)
+            {
+
+                this.a_funkcja = 0;
+            }    
             this.b_funckja=_Start.Y-a_funkcja*_Start.X;
             this.kat_lotu=Math.Atan(a_funkcja*(Math.PI/180));//bo radiany
         }

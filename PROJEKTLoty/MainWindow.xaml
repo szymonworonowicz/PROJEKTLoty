@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PROJEKTLoty"
         mc:Ignorable="d"
         Title="MainWindow" Height="1024" Width="1280">
-    <Grid Name="DynamicGrid" >
+    <Grid Name="DynamicGrid">
         
     </Grid>
 </Window>

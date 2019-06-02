@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace PROJEKTLoty
 {
@@ -23,6 +24,7 @@ namespace PROJEKTLoty
         private int y;
         public int Y { get=>y; private set => y = value; }
         public string nazwa;
+        public Brush kolor = Brushes.Purple;//kolor znaczka
         public Lotnisko(int _x,int _y,string _nazwa)
         {
             this.X = _x;

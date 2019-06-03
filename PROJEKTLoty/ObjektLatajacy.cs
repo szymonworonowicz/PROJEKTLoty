@@ -10,7 +10,8 @@ namespace PROJEKTLoty
 {
     abstract class ObjektLatajacy
     {
-        protected double HazadrousDist = 3;
+        private int ZmianaKursuTikCount = 0;
+        protected double HazadrousDist = 0.5d;
         protected int predkosc = 0;
         private double x,y,z;
         protected double kat, przelot;
@@ -91,6 +92,12 @@ namespace PROJEKTLoty
         }
         private void Transform()
         {
+            if (ZmianaKursuTikCount > 0)
+            {
+                ZmianaKursuTikCount--;
+                if (ZmianaKursuTikCount == 0)
+                    z -= 0.6d;
+            }
                 double dx=predkosc*20*Math.Cos(kat_lotu);
                 double dy=predkosc*20*Math.Sin(kat_lotu);
                 if(_Start.X<_Finish.X)
@@ -155,16 +162,32 @@ namespace PROJEKTLoty
                 {
                     double distance = Math.Sqrt(Math.Pow(Math.Sqrt(Math.Pow(_x - avio.Przewidzpozycje().Item1, 2) + Math.Pow(_y - avio.Przewidzpozycje().Item2, 2)), 2) + Math.Pow(this.z - avio.z, 2));
                     if (distance < HazadrousDist)
-                        Jakzmienickurs( avio );
+                        Jakzmienickurs( avio, true );
                 }
             }
         }
 
-        
-        public void Jakzmienickurs(ObjektLatajacy avio)
+        /// <summary>
+        /// Zmiana kursu poprzez wzlot wyżej
+        /// </summary>
+        /// <param name="avio">Obiekt z którym przewidziane jest zbliżenie</param>
+        /// <param name="choice">True to zmiana kursu obiektu wywołującego funkcję a false to zmiana kursu samolotym z którym zbliżenie jest przewidziane</param>
+        public void Jakzmienickurs(ObjektLatajacy avio, bool choice)
         {
+            if(choice)
+            {
+                this.z += 0.6d;
+                ZmianaKursuTikCount = 5;
+            }
+            else
+            {
+                avio.z += 0.6d;
+                avio.ZmianaKursuTikCount = 5;
+            }
 
         }
+
+
         private  void Start()//tick 20 s
         {
             double time =20;//s

@@ -10,22 +10,15 @@ namespace PROJEKTLoty
     class ObjektStatyczny
     {
         private int x,z, y;
-        public SolidColorBrush kolor = Brushes.Black;//kolor znaczka
+       //kolor znaczka
         public int X { get=>x; private set =>x=value; }
         public int Y { get => y; private set => y = value; }
-        public ObjektStatyczny()
-        {
-
-        }
         public ObjektStatyczny(int _z,int _x,int _y)
         {
             this.z = _z;
             this.y = _y;
             this.X = _x;
         }
-        public ObjektStatyczny(ObjektStatyczny objekt)
-        {
 
-        }
     }
 }

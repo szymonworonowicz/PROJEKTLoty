@@ -10,10 +10,9 @@ namespace PROJEKTLoty
     class Samolot:ObjektLatajacy
     {
         protected const double _kat = 80;
-        protected const int _przelot = 10000;
+        protected const double _przelot = 10;
         protected const int _predkosc = 700;
-        static Brush kolor = Brushes.Brown;//kolor znaczka
-        public Samolot(List<Lotnisko> lotniska):base(lotniska,_kat,_przelot,kolor)
+        public Samolot(List<Lotnisko> lotniska):base(lotniska,_kat,_przelot)
         {
             this.predkosc = _predkosc;
         }

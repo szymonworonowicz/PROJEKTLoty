@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Media;
 
@@ -9,40 +10,42 @@ namespace PROJEKTLoty
 {
     abstract class ObjektLatajacy
     {
-        protected int  predkosc,odl;
+        protected int predkosc = 0;
         private double x,y,z;
         protected double kat, przelot;
         private double a_funkcja=0,b_funckja=0,kat_lotu=0,odl_ladowania=0;
         public double X { get => x; protected set=>x=value; }
         public double Y { get => y; protected set => y = value; }
         protected Lotnisko _Start=null, _Finish=null;
-        public Brush kolor =null;//kolor znaczka
-        public ObjektLatajacy(List<Lotnisko> lotniska,double _kat,int _przelot,  Brush _kolor)
+        public ObjektLatajacy(List<Lotnisko> lotniska,double _kat,double _przelot)
         {
             _Start=LosujLotnisko(lotniska);
-            this.kolor = _kolor;
             X = _Start.X;
             Y = _Start.Y;
-            kat=Math.Round(_kat,3);
+            kat=Math.Round(Math.PI*_kat/180,3);
             przelot=_przelot;
-            odl_ladowania=przelot*(1/Math.Tan(kat))*100;
+            odl_ladowania=przelot*Math.Tan(kat)*100;
             z = 0;
-            do
-            {
-                _Finish = LosujLotnisko(lotniska);
-            } while (OdlLotniska() > 2 * odl_ladowania);
-            funkcja();
+            //do
+            //{
+            //    _Finish = LosujLotnisko(lotniska);
+            //} while (OdlLotniska() < 2 * odl_ladowania);
+            //funkcja();
         }
-        private  Lotnisko LosujLotnisko(List<Lotnisko> lotniska)
+        protected  Lotnisko LosujLotnisko(List<Lotnisko> lotniska)
         {
-            Random rand = new Random();
+            Random random = new Random();
             int i=0;
             do
             {
-                i = rand.Next(0, lotniska.Count );
-            } while (_Start == lotniska[i]);
+                i = random.Next(lotniska.Count());
+                Thread.Sleep(10);
+
+            } while (this._Start == lotniska[i]);
+            Console.WriteLine(i);
             return lotniska[i] ;
         }
+        
         public void Run()//transform pozycji
         {
             bool Czy_wystartowal = false;
@@ -77,7 +80,7 @@ namespace PROJEKTLoty
         }
         private double OdlLotniska()
         {
-            return Math.Round(Math.Sqrt(Math.Pow(_Start.X-_Finish.X,2)+Math.Pow(_Start.Y-_Finish.Y,2)))*100;
+            return Math.Round(Math.Sqrt(Math.Pow(_Start.X-_Finish.X,2)+Math.Pow(_Start.Y-_Finish.Y,2)),3)*100;
         }
         private bool OdlodLadowania()
         {

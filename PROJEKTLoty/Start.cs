@@ -15,18 +15,16 @@ namespace PROJEKTLoty
     {
         //kratka 100 km       
         private LinkedList<ObjektLatajacy> flying;
-        private LinkedList<ObjektStatyczny> Static;
-        static  List<Lotnisko> lotniska = new List<Lotnisko>();
+        static List<Lotnisko> lotniska = new List<Lotnisko>();
         public MainWindow win = null;
-        private Grid Radar=null;
+        private Grid Radar = null;
         public Start()
         {
             win = (MainWindow)Application.Current.MainWindow;//obiekt okienka, wlasciwie to poniekad referencja do niego
-            //flying = new LinkedList<ObjektLatajacy>();
-            Static = new LinkedList<ObjektStatyczny>();
+            flying = new LinkedList<ObjektLatajacy>();
             Radar = new Grid();
             File();
-            flying= InicjalizacjaLotow(); //narazie skomentowane bo robie okno
+            InicjalizacjaLotow(); //narazie skomentowane bo robie okno
             Window();
             Wyswietlmape();
         }
@@ -55,7 +53,7 @@ namespace PROJEKTLoty
             }
             try
             {
-                using (StreamReader str = new StreamReader("obiektystatyczne.txt", true))
+                using (StreamReader str = new StreamReader("obiektystatyczne.txt"))
                 {
                     string line;
                     while ((line = str.ReadLine()) != null)
@@ -63,8 +61,11 @@ namespace PROJEKTLoty
                         int x = Convert.ToInt16(line);
                         int y = Convert.ToInt16(str.ReadLine());
                         int z = Convert.ToInt16(str.ReadLine());
-                        ObjektStatyczny nowy = new ObjektStatyczny(z,x,y);
-                        Static.AddLast(nowy);
+                        TextBlock text = new TextBlock();
+                        text.Background = Brushes.Brown;
+                        Grid.SetColumn(text, y);
+                        Grid.SetRow(text, x);
+                        Radar.Children.Add(text);
                     }
                 }
             }
@@ -72,44 +73,61 @@ namespace PROJEKTLoty
             {
                 Console.WriteLine("brak pliku");
             }
+            //wczytajmape();
         }
 
-        private LinkedList<ObjektLatajacy> InicjalizacjaLotow()
+        private void wczytajmape()
+        {
+            foreach (var temp in lotniska)
+            {
+                TextBlock text = new TextBlock();
+                text.Background = Brushes.Red;
+                Grid.SetColumn(text, temp.Y);
+                Grid.SetRow(text, temp.X);
+                Radar.Children.Add(text);
+            }
+
+        }
+
+        private void InicjalizacjaLotow()
         {
             Random rand = new Random();
-
-            LinkedList<ObjektLatajacy> list = new LinkedList<ObjektLatajacy>();
+            ObjektLatajacy objekt = null;
+            int count = 0;
             for (int i = 0; i < 20; i++)
             {
-                int count = rand.Next(0, 4);
+                count = rand.Next(0, 4);
+                objekt = null;
                 switch (count)
                 {
                     case 0:
-                        list.AddLast(new Samolot(lotniska));
+                        objekt = new Samolot(lotniska);
+                        flying.AddLast(objekt);
                         break;
                     case 1:
-                        list.AddLast(new Balon(lotniska));
+                        objekt = new Balon(lotniska);
+                        flying.AddLast(objekt);
                         break;
                     case 2:
-                        list.AddLast(new Awionetka(lotniska));
+                        objekt = new Awionetka(lotniska);
+                        flying.AddLast(objekt);
                         break;
                     case 3:
-                        list.AddLast (new Helikopter(lotniska));
+                        objekt = new Helikopter(lotniska);
+                        flying.AddLast(objekt);
                         break;
 
                 }
             }
-            return list;
         }
-
         public void Window()
         {
+            win.Background = new SolidColorBrush(Colors.DarkGray);
 
-            Radar.ShowGridLines = true;
-            Radar.Background = new SolidColorBrush(Colors.Azure);
+            Radar.Background = new SolidColorBrush(Colors.Black);
             Radar.Width = 1000;
             Radar.Height = 1000;
-           //Create Columns
+            //Create Columns
             for (int i = 0; i < 100; i++)
             {
                 ColumnDefinition column = new ColumnDefinition();
@@ -128,26 +146,11 @@ namespace PROJEKTLoty
         }
         public void Wyswietlmape()
         {
-            //foreach (var temp in lotniska)
-            //{
-            //    TextBlock text = new TextBlock();
-            //    text.Background = Brushes.Red;
-            //    Grid.SetColumn(text, temp.Y);
-            //    Grid.SetRow(text, temp.X);
-            //    Radar.Children.Add(text);
-            //}
-            //foreach (var temp in Static)
-            //{
-            //    TextBlock text = new TextBlock();
-            //    text.Background = temp.kolor;
-            //    Grid.SetColumn(text, temp.Y);
-            //    Grid.SetRow(text, temp.X);
-            //    Radar.Children.Add(text);
-            //}
+
             foreach (var temp in flying)
             {
                 TextBlock text = new TextBlock();
-                text.Background = temp.kolor;
+                text.Background = Brushes.BlueViolet;
                 Grid.SetColumn(text, Convert.ToInt16(temp.Y));
                 Grid.SetRow(text, Convert.ToInt16(temp.X));
                 Radar.Children.Add(text);

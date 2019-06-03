@@ -10,10 +10,9 @@ namespace PROJEKTLoty
     class Helikopter:ObjektLatajacy
     {
         protected const double _kat = 80;
-        protected const int _przelot = 2000;
+        protected const double _przelot = 2;
         protected const int _predkosc = 500;
-        static Brush kolor = Brushes.Green;//kolor znaczka
-        public Helikopter(List<Lotnisko> lotniska):base(lotniska,_kat,_predkosc,kolor)
+        public Helikopter(List<Lotnisko> lotniska):base(lotniska,_kat,_predkosc)
         {
             this.przelot = _przelot;
         }

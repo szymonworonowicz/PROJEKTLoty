@@ -21,12 +21,28 @@ namespace PROJEKTLoty
     public partial class MainWindow : Window
     {
 
+        public Start start;
         public MainWindow()
         {
 
             InitializeComponent();
-            Start start = new Start();
+            start = new Start();
             
+        }
+        private void Start_Click(object sender, RoutedEventArgs e)
+        {
+            start.Run();
+            Console.WriteLine("1");
+        }
+
+        private void Left_Navigated(object sender, NavigationEventArgs e)
+        {
+
+        }
+
+        private void Right_Navigated(object sender, NavigationEventArgs e)
+        {
+
         }
     }
 }

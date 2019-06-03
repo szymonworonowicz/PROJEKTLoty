@@ -8,7 +8,7 @@ namespace PROJEKTLoty
 { 
     class Awionetka:ObjektLatajacy
     {
-        protected const double _kat = 15;
+        protected const double _kat = 65;
         protected const int _przelot = 5000;
         protected const int _predkosc = 300;
         static Brush kolor = Brushes.Yellow;//kolor znaczka

@@ -13,9 +13,9 @@ namespace PROJEKTLoty
         protected const int _przelot = 700;
         protected const int _predkosc = 50;
         static Brush kolor = Brushes.DarkBlue;//kolor znaczka
-        public Balon(List<Lotnisko> lotniska) : base(lotniska,_kat,_predkosc,kolor)
+        public Balon(List<Lotnisko> lotniska) : base(lotniska,_kat,_przelot,kolor)
         {
-            this.przelot = _przelot;
+            this.predkosc = _predkosc;
         }
     }
 }

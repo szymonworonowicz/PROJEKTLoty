@@ -16,17 +16,17 @@ namespace PROJEKTLoty
         //kratka 100 km       
         private LinkedList<ObjektLatajacy> flying;
         private LinkedList<ObjektStatyczny> Static;
-        static readonly List<Lotnisko> lotniska = new List<Lotnisko>();
+        static  List<Lotnisko> lotniska = new List<Lotnisko>();
         public MainWindow win = null;
         private Grid Radar=null;
         public Start()
         {
             win = (MainWindow)Application.Current.MainWindow;//obiekt okienka, wlasciwie to poniekad referencja do niego
-            flying = new LinkedList<ObjektLatajacy>();
+            //flying = new LinkedList<ObjektLatajacy>();
             Static = new LinkedList<ObjektStatyczny>();
             Radar = new Grid();
             File();
-            InicjalizacjaLotow(); //narazie skomentowane bo robie okno
+            flying= InicjalizacjaLotow(); //narazie skomentowane bo robie okno
             Window();
             Wyswietlmape();
         }
@@ -73,33 +73,35 @@ namespace PROJEKTLoty
                 Console.WriteLine("brak pliku");
             }
         }
-        public void InicjalizacjaLotow()
+
+        private LinkedList<ObjektLatajacy> InicjalizacjaLotow()
         {
             Random rand = new Random();
-            ObjektLatajacy latajacy = null;
+
+            LinkedList<ObjektLatajacy> list = new LinkedList<ObjektLatajacy>();
             for (int i = 0; i < 20; i++)
             {
                 int count = rand.Next(0, 4);
                 switch (count)
                 {
                     case 0:
-                        latajacy = new Samolot(lotniska);
+                        list.AddLast(new Samolot(lotniska));
                         break;
                     case 1:
-                        latajacy = new Balon(lotniska);
+                        list.AddLast(new Balon(lotniska));
                         break;
                     case 2:
-                        latajacy = new Awionetka(lotniska);
+                        list.AddLast(new Awionetka(lotniska));
                         break;
                     case 3:
-                        latajacy = new Helikopter(lotniska);
+                        list.AddLast (new Helikopter(lotniska));
                         break;
 
                 }
-                flying.AddLast(latajacy);
             }
-            Console.WriteLine();
+            return list;
         }
+
         public void Window()
         {
 
@@ -126,30 +128,30 @@ namespace PROJEKTLoty
         }
         public void Wyswietlmape()
         {
-            foreach (var temp in lotniska)
-            {
-                TextBlock text = new TextBlock();
-                text.Background = Brushes.Red;
-                Grid.SetColumn(text, temp.Y);
-                Grid.SetRow(text, temp.X);
-                Radar.Children.Add(text);
-            }
-            foreach (var temp in Static)
+            //foreach (var temp in lotniska)
+            //{
+            //    TextBlock text = new TextBlock();
+            //    text.Background = Brushes.Red;
+            //    Grid.SetColumn(text, temp.Y);
+            //    Grid.SetRow(text, temp.X);
+            //    Radar.Children.Add(text);
+            //}
+            //foreach (var temp in Static)
+            //{
+            //    TextBlock text = new TextBlock();
+            //    text.Background = temp.kolor;
+            //    Grid.SetColumn(text, temp.Y);
+            //    Grid.SetRow(text, temp.X);
+            //    Radar.Children.Add(text);
+            //}
+            foreach (var temp in flying)
             {
                 TextBlock text = new TextBlock();
                 text.Background = temp.kolor;
-                Grid.SetColumn(text, temp.Y);
-                Grid.SetRow(text, temp.X);
+                Grid.SetColumn(text, Convert.ToInt16(temp.Y));
+                Grid.SetRow(text, Convert.ToInt16(temp.X));
                 Radar.Children.Add(text);
             }
-            //foreach (var temp in flying)
-            //{
-            //    TextBlock text = new TextBlock();
-            //    text.Background = Brushes.Black;
-            //    Grid.SetColumn(text, Convert.ToInt16(temp.Y));
-            //    Grid.SetRow(text, Convert.ToInt16(temp.X));
-            //    Radar.Children.Add(text);
-            //}
             win.Content = Radar;
         }
     }

@@ -10,22 +10,22 @@ namespace PROJEKTLoty
     abstract class ObjektLatajacy
     {
         protected int  predkosc,odl;
-        protected double x,y,z,przelot;
-        protected double kat;
+        private double x,y,z;
+        protected double kat, przelot;
         private double a_funkcja=0,b_funckja=0,kat_lotu=0,odl_ladowania=0;
         public double X { get => x; protected set=>x=value; }
-        public double Y { get => x; protected set => x = value; }
+        public double Y { get => y; protected set => y = value; }
         protected Lotnisko _Start=null, _Finish=null;
         public Brush kolor =null;//kolor znaczka
         public ObjektLatajacy(List<Lotnisko> lotniska,double _kat,int _przelot,  Brush _kolor)
         {
             _Start=LosujLotnisko(lotniska);
             this.kolor = _kolor;
-            x = _Start.X;
-            y = _Start.Y;
-            kat=_kat*(Math.PI/180);
+            X = _Start.X;
+            Y = _Start.Y;
+            kat=Math.Round(_kat,3);
             przelot=_przelot;
-            odl_ladowania=przelot*Math.Tan(kat);
+            odl_ladowania=przelot*(1/Math.Tan(kat))*100;
             z = 0;
             do
             {
@@ -61,14 +61,14 @@ namespace PROJEKTLoty
         {
             try
             {
-                this.a_funkcja = (_Start.Y - _Finish.Y) / (_Start.X - _Finish.X);
+                this.a_funkcja =(double) (_Start.Y - _Finish.Y) / (double)(_Start.X - _Finish.X);
             }
             catch (DivideByZeroException)
             {
 
                 this.a_funkcja = 0;
             }    
-            this.b_funckja=_Start.Y-a_funkcja*_Start.X;
+            this.b_funckja= (double)_Start.Y-a_funkcja* (double)_Start.X;
             this.kat_lotu=Math.Atan(a_funkcja*(Math.PI/180));//bo radiany
         }
         private void Lot()
@@ -77,7 +77,7 @@ namespace PROJEKTLoty
         }
         private double OdlLotniska()
         {
-            return Math.Round(Math.Sqrt(Math.Pow(_Start.X-_Finish.X,2)+Math.Pow(_Start.Y-_Finish.Y,2)));
+            return Math.Round(Math.Sqrt(Math.Pow(_Start.X-_Finish.X,2)+Math.Pow(_Start.Y-_Finish.Y,2)))*100;
         }
         private bool OdlodLadowania()
         {

@@ -9,7 +9,7 @@ namespace PROJEKTLoty
 {
     class Samolot:ObjektLatajacy
     {
-        protected const double _kat = 45;
+        protected const double _kat = 80;
         protected const int _przelot = 10000;
         protected const int _predkosc = 700;
         static Brush kolor = Brushes.Brown;//kolor znaczka

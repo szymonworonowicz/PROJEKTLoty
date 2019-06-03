@@ -10,6 +10,7 @@ namespace PROJEKTLoty
 {
     abstract class ObjektLatajacy
     {
+        protected double HazadrousDist = 3;
         protected int predkosc = 0;
         private double x,y,z;
         protected double kat, przelot;
@@ -129,18 +130,38 @@ namespace PROJEKTLoty
         /// </summary>
         /// <param name="objekt">Flying object of which future position we seek and Yoda it sounds kind of like :-P</param>
         /// <returns>Predicted position</returns>
-        public Tuple<int,int> Przewidzpozycje(ObjektLatajacy objekt)
+        public Tuple<int,int> Przewidzpozycje()
         {
             //za 3 tiki
-            Tuple<int, int> position = new Tuple<int, int>((int)objekt.x, (int)objekt.y);
+            Tuple<int, int> position = new Tuple<int, int>((int)this.x, (int)this.y);
             for(int i = 0; i < 3 ; i++ ) { position = TransformRet(position); }
             return position;
-        }   
-        public void Zblizenie()
-        {
-            //zmiana awaryjna kursu
         }
-        public void Jakzmienickurs()
+
+        /// <summary>
+        /// Reaguje na zbliżenie które jast przewidziane na za 3 tiki
+        /// </summary>
+        /// <param name="flying">lista obiektów latających</param>
+        public void Zblizenie(LinkedList<ObjektLatajacy> flying)
+        {
+            double _x = this.Przewidzpozycje().Item1;
+            double _y = this.Przewidzpozycje().Item2;
+
+            //zmiana awaryjna kursu
+            foreach (ObjektLatajacy avio in flying)
+            {
+                //żeby samego siebie nie liczyło
+                if (avio != this)
+                {
+                    double distance = Math.Sqrt(Math.Pow(Math.Sqrt(Math.Pow(_x - avio.Przewidzpozycje().Item1, 2) + Math.Pow(_y - avio.Przewidzpozycje().Item2, 2)), 2) + Math.Pow(this.z - avio.z, 2));
+                    if (distance < HazadrousDist)
+                        Jakzmienickurs( avio );
+                }
+            }
+        }
+
+        
+        public void Jakzmienickurs(ObjektLatajacy avio)
         {
 
         }

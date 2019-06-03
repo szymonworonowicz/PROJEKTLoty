@@ -122,9 +122,8 @@ namespace PROJEKTLoty
         }
         public void Window()
         {
-            win.Background = new SolidColorBrush(Colors.DarkGray);
-
             Radar.Background = new SolidColorBrush(Colors.Black);
+            Radar.HorizontalAlignment = HorizontalAlignment.Left;
             Radar.Width = 1000;
             Radar.Height = 1000;
             //Create Columns
@@ -138,7 +137,7 @@ namespace PROJEKTLoty
             {
                 RowDefinition row = new RowDefinition();
                 Radar.RowDefinitions.Add(row);
-            }
+            }           
         }
         public void Run()
         {
@@ -155,7 +154,7 @@ namespace PROJEKTLoty
                 Grid.SetRow(text, Convert.ToInt16(temp.X));
                 Radar.Children.Add(text);
             }
-            win.Content = Radar;
+            win.Left.Content = Radar;
         }
     }
 }

@@ -8,6 +8,7 @@ namespace projektv2
 {
     abstract class ObjektLatajacy
     {
+        protected double HazadrousDist = 3;
         protected int  predkosc,odl;
         protected double x,y,z,przelot;
         protected double kat;
@@ -120,10 +121,24 @@ namespace projektv2
             for(int i = 0; i < 3 ; i++ ) { position = TransformRet(position); }
             return position;
         }   
-        public void Zblizenie()
+
+
+        public ObjektLatajacy Zblizenie( LinkedList<ObjektLatajacy> flying)
         {
             //zmiana awaryjna kursu
+            foreach (ObjektLatajacy avio in flying)
+            {
+                //żeby samego siebie nie liczyło
+                if(avio != this)
+                {
+                    double distance = Math.Sqrt(Math.Pow(Math.Sqrt(Math.Pow(this.x - avio.x, 2)+Math.Pow(this.y-avio.y,2)) , 2) + Math.Pow( this.z - avio.z , 2 ));
+                    if (distance < HazadrousDist)
+                        return avio;
+                }
+            }
+            return null;
         }
+
         public void Jakzmienickurs()
         {
 

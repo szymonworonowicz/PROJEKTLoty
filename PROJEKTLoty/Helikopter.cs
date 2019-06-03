@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
-namespace projektv2
+namespace PROJEKTLoty
 {
     class Helikopter:ObjektLatajacy
     {
         protected const double _kat = 80;
-        protected const int _przelot = 2000;
+        protected const double _przelot = 2;
         protected const int _predkosc = 500;
         public Helikopter(List<Lotnisko> lotniska):base(lotniska,_kat,_predkosc)
         {

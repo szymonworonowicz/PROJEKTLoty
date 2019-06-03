@@ -2,43 +2,50 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
-namespace projektv2
+namespace PROJEKTLoty
 {
     abstract class ObjektLatajacy
     {
-        protected double HazadrousDist = 3;
-        protected int  predkosc,odl;
-        protected double x,y,z,przelot;
-        protected double kat;
+        protected int predkosc = 0;
+        private double x,y,z;
+        protected double kat, przelot;
         private double a_funkcja=0,b_funckja=0,kat_lotu=0,odl_ladowania=0;
+        public double X { get => x; protected set=>x=value; }
+        public double Y { get => y; protected set => y = value; }
         protected Lotnisko _Start=null, _Finish=null;
-        public ObjektLatajacy(List<Lotnisko> lotniska,double _kat,int _przelot)
+        public ObjektLatajacy(List<Lotnisko> lotniska,double _kat,double _przelot)
         {
             _Start=LosujLotnisko(lotniska);
-            x = _Start.X;
-            y = _Start.Y;
-            kat=_kat*(Math.PI/180);
+            X = _Start.X;
+            Y = _Start.Y;
+            kat=Math.Round(Math.PI*_kat/180,3);
             przelot=_przelot;
-            odl_ladowania=przelot*Math.Tan(kat);
+            odl_ladowania=przelot*Math.Tan(kat)*100;
             z = 0;
-            do
-	        {
-                _Finish=LosujLotnisko(lotniska);
-	        } while (OdlLotniska()>2*odl_ladowania);         
-            funkcja();
+            //do
+            //{
+            //    _Finish = LosujLotnisko(lotniska);
+            //} while (OdlLotniska() < 2 * odl_ladowania);
+            //funkcja();
         }
-        private  Lotnisko LosujLotnisko(List<Lotnisko> lotniska)
+        protected  Lotnisko LosujLotnisko(List<Lotnisko> lotniska)
         {
-            Random rand = new Random();
+            Random random = new Random();
             int i=0;
             do
             {
-                i = rand.Next(0, lotniska.Count - 1);
-            } while (_Start == lotniska[i]);
+                i = random.Next(lotniska.Count());
+                Thread.Sleep(10);
+
+            } while (this._Start == lotniska[i]);
+            Console.WriteLine(i);
             return lotniska[i] ;
         }
+        
         public void Run()//transform pozycji
         {
             bool Czy_wystartowal = false;
@@ -55,8 +62,16 @@ namespace projektv2
         }
         private void funkcja()//funkcja lotu gdy juz wlecial na przelot
         {
-            this.a_funkcja=(_Start.Y-_Finish.Y)/(_Start.X-_Finish.Y);
-            this.b_funckja=_Start.Y-a_funkcja*_Start.X;
+            try
+            {
+                this.a_funkcja =(double) (_Start.Y - _Finish.Y) / (double)(_Start.X - _Finish.X);
+            }
+            catch (DivideByZeroException)
+            {
+
+                this.a_funkcja = 0;
+            }    
+            this.b_funckja= (double)_Start.Y-a_funkcja* (double)_Start.X;
             this.kat_lotu=Math.Atan(a_funkcja*(Math.PI/180));//bo radiany
         }
         private void Lot()
@@ -65,7 +80,7 @@ namespace projektv2
         }
         private double OdlLotniska()
         {
-            return Math.Round(Math.Sqrt(Math.Pow(_Start.X-_Finish.X,2)+Math.Pow(_Start.Y-_Finish.Y,2)));
+            return Math.Round(Math.Sqrt(Math.Pow(_Start.X-_Finish.X,2)+Math.Pow(_Start.Y-_Finish.Y,2)),3)*100;
         }
         private bool OdlodLadowania()
         {
@@ -121,24 +136,10 @@ namespace projektv2
             for(int i = 0; i < 3 ; i++ ) { position = TransformRet(position); }
             return position;
         }   
-
-
-        public ObjektLatajacy Zblizenie( LinkedList<ObjektLatajacy> flying)
+        public void Zblizenie()
         {
             //zmiana awaryjna kursu
-            foreach (ObjektLatajacy avio in flying)
-            {
-                //żeby samego siebie nie liczyło
-                if(avio != this)
-                {
-                    double distance = Math.Sqrt(Math.Pow(Math.Sqrt(Math.Pow(this.x - avio.x, 2)+Math.Pow(this.y-avio.y,2)) , 2) + Math.Pow( this.z - avio.z , 2 ));
-                    if (distance < HazadrousDist)
-                        return avio;
-                }
-            }
-            return null;
         }
-
         public void Jakzmienickurs()
         {
 

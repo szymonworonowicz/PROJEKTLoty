@@ -153,15 +153,25 @@ namespace PROJEKTLoty
         }
         public void Wyswietlmape()
         {
-            foreach(var temp in lotniska)
+            Radar.Children.Clear();
+            for (int i = Radar.Children.Count - 1; i >= 0; --i)
+            {
+                if (Radar.Children[i].GetType() == typeof(TextBlock))
+                {
+                    Radar.Children.RemoveAt(i);
+                }
+            }
+
+            foreach (var temp in lotniska)
             {
                 TextBlock text = new TextBlock();
                 text.Background = Brushes.Red;
                 Grid.SetColumn(text, temp.Y);
                 Grid.SetRow(text, temp.X);
                 Radar.Children.Add(text);
+
             }
-            foreach(var temp in statyczne)
+            foreach (var temp in statyczne)
             {
                 TextBlock text = new TextBlock();
                 text.Background = Brushes.White;
@@ -169,6 +179,7 @@ namespace PROJEKTLoty
                 Grid.SetRow(text, temp.Item2);
                 Radar.Children.Add(text);
             }
+            Console.WriteLine();
             foreach (var temp in flying)
             {
                 TextBlock text = new TextBlock();

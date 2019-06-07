@@ -101,13 +101,13 @@ namespace PROJEKTLoty
                 double dx=predkosc*20*Math.Cos(kat_lotu)/100;
                 double dy=predkosc*20*Math.Sin(kat_lotu)/100;
             if (_Start.X < _Finish.X)
-                x += dx;
+                x += Math.Abs(dx);
             else
-                x -= dx;
+                x -= Math.Abs(dx);
             if (_Start.Y < _Finish.Y)
-                y += dy;
+                y += Math.Abs(dy);
             else
-                y -= dy;
+                y -= Math.Abs(dy);
         }
 
         /// <summary>

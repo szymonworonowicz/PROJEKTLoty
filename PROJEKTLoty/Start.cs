@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -137,7 +138,7 @@ namespace PROJEKTLoty
                 RowDefinition row = new RowDefinition();
                 Radar.RowDefinitions.Add(row);
             }
-            win.Left.Content = Radar;
+
         }
         public void Run()
         {
@@ -148,20 +149,22 @@ namespace PROJEKTLoty
                     temp.Run();
                 }
                 Wyswietlmape();
+                start = false;
             }
             
         }
         public void Wyswietlmape()
         {
             Radar.Children.Clear();
-            for (int i = Radar.Children.Count - 1; i >= 0; --i)
-            {
-                if (Radar.Children[i].GetType() == typeof(TextBlock))
-                {
-                    Radar.Children.RemoveAt(i);
-                }
-            }
-
+            Radar.RowDefinitions.Clear();
+            Radar.ColumnDefinitions.Clear();
+            Radar = null;
+            win.Left.Content = null;
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            Radar = new Grid();
+            Window();
+            Thread.Sleep(100);
             foreach (var temp in lotniska)
             {
                 TextBlock text = new TextBlock();

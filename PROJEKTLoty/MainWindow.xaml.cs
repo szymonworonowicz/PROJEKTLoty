@@ -33,6 +33,7 @@ namespace PROJEKTLoty
         {
             start.start = true;
             start.Run();
+            start.start = false;
             Console.WriteLine("1");
         }
 

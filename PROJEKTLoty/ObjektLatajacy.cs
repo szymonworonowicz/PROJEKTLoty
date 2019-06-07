@@ -98,8 +98,8 @@ namespace PROJEKTLoty
                 if (ZmianaKursuTikCount == 0)
                     z -= 0.6d;
             }
-                double dx=predkosc*20*Math.Cos(kat_lotu)/100;
-                double dy=predkosc*20*Math.Sin(kat_lotu)/100;
+                double dx=predkosc*20*Math.Cos(kat_lotu)/1000;
+                double dy=predkosc*20*Math.Sin(kat_lotu)/1000;
             if (_Start.X < _Finish.X)
                 x += Math.Abs(dx);
             else

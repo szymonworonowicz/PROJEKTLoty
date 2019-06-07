@@ -69,7 +69,7 @@ namespace PROJEKTLoty
 
                 this.a_funkcja =(double) (_Start.Y - _Finish.Y) / (double)(_Start.X - _Finish.X);
             }
-            catch (DivideByZeroException e)
+            catch (DivideByZeroException )
             {
 
                 this.a_funkcja = 0d;

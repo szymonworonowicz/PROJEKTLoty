@@ -24,6 +24,7 @@ namespace PROJEKTLoty
         {
             win = (MainWindow)Application.Current.MainWindow;//obiekt okienka, wlasciwie to poniekad referencja do niego
             flying = new LinkedList<ObjektLatajacy>();
+            win.Hide();
             statyczne = new List<Tuple<int, int>>();
             Radar = new Grid();
             File();
@@ -155,7 +156,7 @@ namespace PROJEKTLoty
         {
             foreach(var temp in lotniska)
             {
-                DockPanel text = new DockPanel();
+                TextBlock text = new TextBlock();
                 text.Background = Brushes.Red;
                 Grid.SetColumn(text, temp.Y);
                 Grid.SetRow(text, temp.X);
@@ -163,7 +164,7 @@ namespace PROJEKTLoty
             }
             foreach(var temp in statyczne)
             {
-                DockPanel dock = new DockPanel();
+                TextBlock dock = new TextBlock();
                 dock.Background = Brushes.White;
                 Grid.SetColumn(dock, temp.Item1);
                 Grid.SetRow(dock, temp.Item2);
@@ -171,7 +172,7 @@ namespace PROJEKTLoty
             }
             foreach (var temp in flying)
             {
-                DockPanel text = new DockPanel();
+                TextBlock text = new TextBlock();
                 text.Background = Brushes.BlueViolet;
                 Grid.SetColumn(text, Convert.ToInt16(temp.Y));
                 Grid.SetRow(text, Convert.ToInt16(temp.X));

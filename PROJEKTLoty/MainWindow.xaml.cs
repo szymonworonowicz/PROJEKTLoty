@@ -31,7 +31,6 @@ namespace PROJEKTLoty
         }
         private void Start_Click(object sender, RoutedEventArgs e)
         {
-            start.start = true;
             start.Run();
             Console.WriteLine("1");
         }
@@ -44,10 +43,6 @@ namespace PROJEKTLoty
         private void Right_Navigated(object sender, NavigationEventArgs e)
         {
 
-        }
-        private void Stop_Click (object sender ,RoutedEventArgs e)
-        {
-            start.start = false;
         }
     }
 }

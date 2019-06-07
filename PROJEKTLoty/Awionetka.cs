@@ -8,12 +8,12 @@ namespace PROJEKTLoty
 { 
     class Awionetka:ObjektLatajacy
     {
-        protected const double _kat = 65;//degree
-        protected const double _przelot = 5000;//m
-        protected const int _predkosc = 84;//mps
-        public Awionetka(List<Lotnisko> lotniska) : base(lotniska,_kat,_przelot,_predkosc)
+        protected const double _kat = 65;
+        protected const double _przelot = 5;//km
+        protected const int _predkosc = 300;
+        public Awionetka(List<Lotnisko> lotniska) : base(lotniska,_kat,_przelot )
         {
-            
+            this.predkosc = _predkosc;
         }
     }
 }

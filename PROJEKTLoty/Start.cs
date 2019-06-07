@@ -16,21 +16,22 @@ namespace PROJEKTLoty
         //kratka 100 km       
         private LinkedList<ObjektLatajacy> flying;
         static List<Lotnisko> lotniska = new List<Lotnisko>();
-        private List<Tuple<int, int>> statyczne;
         public MainWindow win = null;
-        public bool start = true;
         private Grid Radar = null;
         public Start()
         {
             win = (MainWindow)Application.Current.MainWindow;//obiekt okienka, wlasciwie to poniekad referencja do niego
             flying = new LinkedList<ObjektLatajacy>();
-            win.Hide();
+<<<<<<< HEAD
+
             statyczne = new List<Tuple<int, int>>();
+=======
+>>>>>>> parent of b007771... pozmieniano troche konstruktory , zlokalizowano blad z wypisywaniem
             Radar = new Grid();
             File();
             InicjalizacjaLotow(); //narazie skomentowane bo robie okno
             Window();
-            //Wyswietlmape();
+            Wyswietlmape();
         }
         public void File()
         {
@@ -65,7 +66,11 @@ namespace PROJEKTLoty
                         int x = Convert.ToInt16(line);
                         int y = Convert.ToInt16(str.ReadLine());
                         int z = Convert.ToInt16(str.ReadLine());
-                        statyczne.Add(new Tuple<int, int>(x, y));
+                        TextBlock text = new TextBlock();
+                        text.Background = Brushes.Brown;
+                        Grid.SetColumn(text, y);
+                        Grid.SetRow(text, x);
+                        Radar.Children.Add(text);
                     }
                 }
             }
@@ -76,18 +81,18 @@ namespace PROJEKTLoty
             //wczytajmape();
         }
 
-        //private void wczytajmape()
-        //{
-        //    foreach (var temp in lotniska)
-        //    {
-        //        TextBlock text = new TextBlock();
-        //        text.Background = Brushes.Green;
-        //        Grid.SetColumn(text, temp.Y);
-        //        Grid.SetRow(text, temp.X);
-        //        Radar.Children.Add(text);
-        //    }
+        private void wczytajmape()
+        {
+            foreach (var temp in lotniska)
+            {
+                TextBlock text = new TextBlock();
+                text.Background = Brushes.Red;
+                Grid.SetColumn(text, temp.Y);
+                Grid.SetRow(text, temp.X);
+                Radar.Children.Add(text);
+            }
 
-        //}
+        }
 
         private void InicjalizacjaLotow()
         {
@@ -137,23 +142,15 @@ namespace PROJEKTLoty
             {
                 RowDefinition row = new RowDefinition();
                 Radar.RowDefinitions.Add(row);
-            }
-            win.Left.Content = Radar;
+            }           
         }
         public void Run()
         {
-            while(start==true)
-            {
-                foreach (var temp in flying)
-                {
-                    temp.Run();
-                }
-                Wyswietlmape();
-            }
-            
+
         }
         public void Wyswietlmape()
         {
+<<<<<<< HEAD
             foreach(var temp in lotniska)
             {
                 TextBlock text = new TextBlock();
@@ -170,6 +167,9 @@ namespace PROJEKTLoty
                 Grid.SetRow(dock, temp.Item2);
                 Radar.Children.Add(dock);
             }
+=======
+
+>>>>>>> parent of b007771... pozmieniano troche konstruktory , zlokalizowano blad z wypisywaniem
             foreach (var temp in flying)
             {
                 TextBlock text = new TextBlock();

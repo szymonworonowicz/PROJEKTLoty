@@ -15,24 +15,26 @@ namespace PROJEKTLoty
         protected int predkosc = 0;
         private double x,y,z;
         protected double kat, przelot;
+        private bool Czy_wystartowal = false;
         private double a_funkcja=0,b_funckja=0,kat_lotu=0,odl_ladowania=0;
         public double X { get => x; protected set=>x=value; }
         public double Y { get => y; protected set => y = value; }
         protected Lotnisko _Start=null, _Finish=null;
-        public ObjektLatajacy(List<Lotnisko> lotniska,double _kat,double _przelot)
+        public ObjektLatajacy(List<Lotnisko> lotniska,double _kat,double _przelot,int _predkosc)
         {
             _Start=LosujLotnisko(lotniska);
             X = _Start.X;
             Y = _Start.Y;
-            kat=Math.Round(Math.PI*_kat/180,3);
+            predkosc = _predkosc;
+            kat=Math.Round(Math.PI*_kat/180,3);//change to radian
             przelot=_przelot;
-            odl_ladowania=przelot*Math.Tan(kat)*100;
+            odl_ladowania=przelot*Math.Tan(kat);
             z = 0;
             //do
             //{
-            //    _Finish = LosujLotnisko(lotniska);
+               _Finish = LosujLotnisko(lotniska);
             //} while (OdlLotniska() < 2 * odl_ladowania);
-            //funkcja();
+            funkcja();
         }
         protected  Lotnisko LosujLotnisko(List<Lotnisko> lotniska)
         {
@@ -44,13 +46,11 @@ namespace PROJEKTLoty
                 Thread.Sleep(10);
 
             } while (this._Start == lotniska[i]);
-            Console.WriteLine(i);
             return lotniska[i] ;
         }
         
         public void Run()//transform pozycji
         {
-            bool Czy_wystartowal = false;
             if (z < przelot && Czy_wystartowal==false)
                 Start();
             else if (z == przelot && OdlodLadowania()==false)
@@ -74,7 +74,7 @@ namespace PROJEKTLoty
                 this.a_funkcja = 0;
             }    
             this.b_funckja= (double)_Start.Y-a_funkcja* (double)_Start.X;
-            this.kat_lotu=Math.Atan(a_funkcja*(Math.PI/180));//bo radiany
+            this.kat_lotu=Math.Round(Math.Atan(a_funkcja),3);//bo radiany
         }
         private void Lot()
         {
@@ -98,16 +98,16 @@ namespace PROJEKTLoty
                 if (ZmianaKursuTikCount == 0)
                     z -= 0.6d;
             }
-                double dx=predkosc*20*Math.Cos(kat_lotu);
-                double dy=predkosc*20*Math.Sin(kat_lotu);
-                if(_Start.X<_Finish.X)
-                    x+=dx;
-                else
-                    x-=dx;
-                if(_Start.Y<_Finish.Y)
-                    y+=dy;
-                else
-                    y-=dy;
+                double dx=predkosc*20*Math.Cos(kat_lotu)/100;
+                double dy=predkosc*20*Math.Sin(kat_lotu)/100;
+            if (_Start.X < _Finish.X)
+                x += dx;
+            else
+                x -= dx;
+            if (_Start.Y < _Finish.Y)
+                y += dy;
+            else
+                y -= dy;
         }
 
         /// <summary>
@@ -186,14 +186,14 @@ namespace PROJEKTLoty
             }
 
         }
-
-
         private  void Start()//tick 20 s
         {
             double time =20;//s
             double skos=predkosc*time;
             double changewys=Math.Round(Math.Sin(kat)*skos);
             z+=changewys;
+            if (z  > przelot)
+                z = przelot;
             Transform();
             
         }

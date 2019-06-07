@@ -30,10 +30,10 @@ namespace PROJEKTLoty
             przelot=_przelot;
             odl_ladowania=przelot*Math.Tan(kat);
             z = 0;
-            //do
-            //{
+            do
+            {
                _Finish = LosujLotnisko(lotniska);
-            //} while (OdlLotniska() < 2 * odl_ladowania);
+            } while (OdlLotniska() < 2 * odl_ladowania);
             funkcja();
         }
         protected  Lotnisko LosujLotnisko(List<Lotnisko> lotniska)
@@ -66,12 +66,13 @@ namespace PROJEKTLoty
         {
             try
             {
+
                 this.a_funkcja =(double) (_Start.Y - _Finish.Y) / (double)(_Start.X - _Finish.X);
             }
-            catch (DivideByZeroException)
+            catch (DivideByZeroException e)
             {
 
-                this.a_funkcja = 0;
+                this.a_funkcja = 0d;
             }    
             this.b_funckja= (double)_Start.Y-a_funkcja* (double)_Start.X;
             this.kat_lotu=Math.Round(Math.Atan(a_funkcja),3);//bo radiany
@@ -98,8 +99,8 @@ namespace PROJEKTLoty
                 if (ZmianaKursuTikCount == 0)
                     z -= 0.6d;
             }
-                double dx=predkosc*20*Math.Cos(kat_lotu)/100;
-                double dy=predkosc*20*Math.Sin(kat_lotu)/100;
+                double dx=predkosc*20*Math.Cos(kat_lotu)/1000;
+                double dy=predkosc*20*Math.Sin(kat_lotu)/1000;
             if (_Start.X < _Finish.X)
                 x += dx;
             else
@@ -117,7 +118,7 @@ namespace PROJEKTLoty
         /// <returns>Position after transform</returns>
         private Tuple<int,int> TransformRet(Tuple<int, int> tup)
         {
-            double dx = predkosc * 20 * Math.Cos(kat_lotu);
+            double dx = predkosc * 20 * Math.Cos(2*Math.PI-kat_lotu);
             double dy = predkosc * 20 * Math.Sin(kat_lotu);
             // position it returns
             double xRet, yRet;

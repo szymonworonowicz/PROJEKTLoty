@@ -155,7 +155,7 @@ namespace PROJEKTLoty
         {
             foreach(var temp in lotniska)
             {
-                TextBlock text = new TextBlock();
+                DockPanel text = new DockPanel();
                 text.Background = Brushes.Red;
                 Grid.SetColumn(text, temp.Y);
                 Grid.SetRow(text, temp.X);
@@ -163,15 +163,15 @@ namespace PROJEKTLoty
             }
             foreach(var temp in statyczne)
             {
-                TextBlock text = new TextBlock();
-                text.Background = Brushes.White;
-                Grid.SetColumn(text, temp.Item1);
-                Grid.SetRow(text, temp.Item2);
-                Radar.Children.Add(text);
+                DockPanel dock = new DockPanel();
+                dock.Background = Brushes.White;
+                Grid.SetColumn(dock, temp.Item1);
+                Grid.SetRow(dock, temp.Item2);
+                Radar.Children.Add(dock);
             }
             foreach (var temp in flying)
             {
-                TextBlock text = new TextBlock();
+                DockPanel text = new DockPanel();
                 text.Background = Brushes.BlueViolet;
                 Grid.SetColumn(text, Convert.ToInt16(temp.Y));
                 Grid.SetRow(text, Convert.ToInt16(temp.X));

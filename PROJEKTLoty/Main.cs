@@ -47,7 +47,6 @@ namespace PROJEKTLoty
             try
             {
                 string line;
-
                 using (StreamReader str = new StreamReader("lotniska.txt"))
                 {
                     while ((line = str.ReadLine()) != null)
@@ -160,9 +159,7 @@ namespace PROJEKTLoty
             }
         }
         public void Run()
-        {
-            while(start==true)
-            {
+        { 
                 foreach (var temp in flying)
                 {
                     try
@@ -178,10 +175,7 @@ namespace PROJEKTLoty
 
                     }
                 }
-                Wyswietlmape();
-               //start = false;
-            }
-            
+            Wyswietlmape();
         }
         public void Wyswietlmape()
         {
@@ -189,7 +183,8 @@ namespace PROJEKTLoty
             int i = 0;
             foreach (var temp in Lotniska)
             {
-                
+                AirpotrBlock[i].Text = (i + 1).ToString();
+                AirpotrBlock[i].FontSize =9;
                 Grid.SetColumn(AirpotrBlock[i], temp.Y);
                 Grid.SetRow(AirpotrBlock[i], temp.X);
                 Radar.Children.Add(AirpotrBlock[i]);
@@ -216,8 +211,10 @@ namespace PROJEKTLoty
                 }
                 catch (ArgumentException)
                 {
-
-                    Console.WriteLine();
+                    Legend legend = new Legend();
+                    legend.Show();
+                    Console.WriteLine(temp.ToString());
+                    Console.WriteLine(temp.kat_lotu);
                 }
                 
             }

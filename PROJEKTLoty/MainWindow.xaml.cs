@@ -31,7 +31,6 @@ namespace PROJEKTLoty
         }
         private void Start_Click(object sender, RoutedEventArgs e)
         {
-            start.start = true;
             start.Run();
         }
 
@@ -46,7 +45,7 @@ namespace PROJEKTLoty
         }
         private void Stop_Click (object sender ,RoutedEventArgs e)
         {
-            start.start = false;
+
         }
     }
 }

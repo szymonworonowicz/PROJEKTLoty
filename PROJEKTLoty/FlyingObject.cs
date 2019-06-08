@@ -12,11 +12,13 @@ namespace PROJEKTLoty
     {
         public int ZmianaKursuTikCount = 0;
         protected double HazadrousDist = 0.5d;
+        private static int indexer = 1;
+        public int index = 0;
         protected int predkosc = 0;
         private double x,y,z;
         protected double kat, przelot;
         private bool Czy_wystartowal = false;
-        private double a_funkcja=0,b_funckja=0,kat_lotu=0,odl_ladowania=0;
+        public double a_funkcja = 0, b_funckja = 0, kat_lotu = 0, odl_ladowania = 0;//zmienic na private
         public double X { get => x; protected set=>x=value; }
         public double Y { get => y; protected set => y = value; }
         public double Z { get => z; set => z = value; }
@@ -29,10 +31,12 @@ namespace PROJEKTLoty
             predkosc = _predkosc;
             kat=Math.Round(Math.PI*_kat/180,3);//change to radian
             przelot=_przelot;
-            odl_ladowania=przelot*Math.Tan(kat)/100000;
+            odl_ladowania=przelot*Math.Tan(kat)/10000;
             z = 0;
             _Finish = LosujLotnisko(Main.Lotniska);
             funkcja();
+            index = indexer;
+            indexer++;
         }
         protected  Airport LosujLotnisko(List<Airport> lotniska)
         {
@@ -50,24 +54,19 @@ namespace PROJEKTLoty
         public void Run()//transform pozycji
         {
             Zblizenie();
+            if (Odlfinish() < 5)
+            {
+                Console.WriteLine();
+            }
             if (z < przelot && Czy_wystartowal == false)
                 Start();
-            else if (z == przelot && OdlodLadowania()==false)
+            else if (OdlodLadowania()==false)
             {
                 Czy_wystartowal = true;
                 Transform();
-            } 
-            else if(z==0 && Math.Abs(x-_Finish.X)<1 && Math.Abs(y - _Finish.Y) < 1)
-            {
-                Czy_wystartowal = false;
-                x = _Finish.X;
-                y = _Finish.Y;
-                _Start = _Finish;
-                _Finish = LosujLotnisko(Main.Lotniska);
-                funkcja();
-                throw new LandingException(this);
             }
-            else if(Czy_wystartowal==true && OdlodLadowania()==true)
+             
+            else if( OdlodLadowania()==true)
                 Finish();
             
         }
@@ -87,13 +86,17 @@ namespace PROJEKTLoty
         }
         private double OdlLotniska()
         {
-            return Math.Round(Math.Sqrt(Math.Pow(_Start.X-_Finish.X,2)+Math.Pow(_Start.Y-_Finish.Y,2)),3)*100;
+            return Math.Round(Math.Sqrt(Math.Pow(_Start.X-_Finish.X,2)+Math.Pow(_Start.Y-_Finish.Y,2)),3)*100 ;
         }
         private bool OdlodLadowania()
         {
-            if (Math.Sqrt(Math.Pow(this.x - _Finish.X, 2) + Math.Pow(this.y - _Finish.Y, 2)) < odl_ladowania) //przez 5 zer bo km na metry i 1 kratka to 100 km
+            if (Odlfinish() < odl_ladowania) 
                 return true;
             return false;
+        }
+        private double Odlfinish()
+        {
+            return Math.Sqrt(Math.Pow(this.x - _Finish.X, 2) + Math.Pow(this.y - _Finish.Y, 2));
         }
         private void Transform()
         {
@@ -103,8 +106,8 @@ namespace PROJEKTLoty
                 if (ZmianaKursuTikCount == 0)
                     z -= 60d;
             }
-                double dx=predkosc*20*Math.Cos(kat_lotu)/1000;
-                double dy=predkosc*20*Math.Sin(kat_lotu)/1000;
+                double dx=predkosc*10*Math.Cos(kat_lotu)/1000;
+                double dy=predkosc*10*Math.Sin(kat_lotu)/1000;
             if (_Start.X < _Finish.X)
                 x += Math.Abs(dx);
             else
@@ -122,8 +125,8 @@ namespace PROJEKTLoty
         /// <returns>Position after transform</returns>
         private Tuple<int,int> TransformRet(Tuple<int, int> tup)
         {
-            double dx = predkosc * 20 * Math.Cos(kat_lotu);
-            double dy = predkosc * 20 * Math.Sin(kat_lotu);
+            double dx = predkosc * 10 * Math.Cos(kat_lotu);
+            double dy = predkosc * 10 * Math.Sin(kat_lotu);
             // position it returns
             double xRet, yRet;
             if (_Start.X < _Finish.X)
@@ -171,9 +174,9 @@ namespace PROJEKTLoty
                 }
             }
         }
-        private  void Start()//tick 20 s
+        private  void Start()//tick 10 s
         {
-            double time =20;//s
+            double time =10;//s
             double skos=predkosc*time;
             double changewys=Math.Round(Math.Sin(kat)*skos);
             z+=changewys;
@@ -184,21 +187,33 @@ namespace PROJEKTLoty
         }
         private void Finish()
         {
-            double time =20;//s
+            double time =10;//s
             double skos=predkosc*time;
             double changewys=Math.Round(Math.Sin(kat)*skos);
-            z-=changewys;
             if (z < 0)
             {
                 z = 0;
                 return;
             }
-            if(!((Math.Abs(x-_Finish.X)<1 &&  (Math.Abs(y - _Finish.Y) < 1 ))))
+            else if (Odlfinish() < 5)
+            {
+                Czy_wystartowal = false;
+                x = _Finish.X;
+                y = _Finish.Y;
+                z = 0;
+                _Start = _Finish;
+                _Finish = LosujLotnisko(Main.Lotniska);
+                funkcja();
+                throw new LandingException(this);
+            }
+            z -= changewys;
+            if (Odlfinish()>1d)
                 Transform();
+            
         }
         public override string ToString()
         {
-            return "from" + _Start.ToString() + " to " + _Finish.ToString();
+            return "[ "+index+" ] from" + _Start.ToString() + " to " + _Finish.ToString();
         }
     }
 }

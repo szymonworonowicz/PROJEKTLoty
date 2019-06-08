@@ -37,6 +37,7 @@ namespace PROJEKTLoty
             }
         }
         public string nazwa;
+        public int i;
         public Airport(int _x,int _y,string _nazwa)
         {
             this.X = _x;

@@ -20,5 +20,9 @@ namespace PROJEKTLoty
         {
             return "Helikopter "+base.ToString();
         }
+        public override SolidColorBrush ReturnColor()
+        {
+            return Brushes.Yellow;
+        }
     }
 }

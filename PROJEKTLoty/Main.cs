@@ -90,7 +90,7 @@ namespace PROJEKTLoty
             foreach (var temp in flying)
             {
                 TextBlock text = new TextBlock();
-                text.Background = Brushes.BlueViolet;
+                text.Background = temp.ReturnColor() ;
                 FlyingBlock.Add(text);
             }
             foreach (var temp in Lotniska)
@@ -160,6 +160,7 @@ namespace PROJEKTLoty
         }
         public void Run()
         { 
+            for(int i=0;i<2;i++)
                 foreach (var temp in flying)
                 {
                     try
@@ -175,6 +176,7 @@ namespace PROJEKTLoty
 
                     }
                 }
+            Thread.Sleep(10);
             Wyswietlmape();
         }
         public void Wyswietlmape()
@@ -211,10 +213,7 @@ namespace PROJEKTLoty
                 }
                 catch (ArgumentException)
                 {
-                    Legend legend = new Legend();
-                    legend.Show();
-                    Console.WriteLine(temp.ToString());
-                    Console.WriteLine(temp.kat_lotu);
+                    Console.WriteLine();
                 }
                 
             }

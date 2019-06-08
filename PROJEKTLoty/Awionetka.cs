@@ -19,5 +19,9 @@ namespace PROJEKTLoty
         {
             return "Awionetka " + base.ToString();
         }
+        public override SolidColorBrush ReturnColor()
+        {
+            return Brushes.Purple;
+        }
     }
 }

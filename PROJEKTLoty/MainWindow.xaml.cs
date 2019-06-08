@@ -45,7 +45,8 @@ namespace PROJEKTLoty
         }
         private void Stop_Click (object sender ,RoutedEventArgs e)
         {
-
+            Legend win = new Legend();
+            win.ShowDialog();
         }
     }
 }

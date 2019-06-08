@@ -20,5 +20,9 @@ namespace PROJEKTLoty
         {
             return "Balon "+ base.ToString();
         }
+        public override SolidColorBrush ReturnColor()
+        {
+            return Brushes.Blue;
+        }
     }
 }

@@ -195,7 +195,7 @@ namespace PROJEKTLoty
                 z = 0;
                 return;
             }
-            else if (Odlfinish() < 5)
+            else if (Odlfinish() < 8)
             {
                 Czy_wystartowal = false;
                 x = _Finish.X;
@@ -204,7 +204,7 @@ namespace PROJEKTLoty
                 _Start = _Finish;
                 _Finish = LosujLotnisko(Main.Lotniska);
                 funkcja();
-                throw new LandingException(this);
+
             }
             z -= changewys;
             if (Odlfinish()>1d)
@@ -215,5 +215,10 @@ namespace PROJEKTLoty
         {
             return "[ "+index+" ] from" + _Start.ToString() + " to " + _Finish.ToString();
         }
+        public virtual SolidColorBrush ReturnColor()
+        {
+            return  Brushes.Red;
+        }
+        
     }
 }

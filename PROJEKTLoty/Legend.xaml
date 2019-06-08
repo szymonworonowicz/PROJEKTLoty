@@ -5,10 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PROJEKTLoty"
         mc:Ignorable="d"
-        Title="Legend" Height="450" Width="800">
-    <Grid>
-
-
+        Title="Legend" Height="407.951" Width="327.898">
+    <Grid Background="Black">
+        <Button x:Name="Exit" Content="Exit" HorizontalAlignment="Left" Margin="108,327,0,0" VerticalAlignment="Top" Width="75" Click="Exit_Click"/>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="30,32,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Height="20" Width="20" Background="White"  />
+        <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Margin="30,78,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Height="20" Width="20" Background="red"  />
+        <TextBlock x:Name="textBlock_Copy1" HorizontalAlignment="Left" Margin="30,114,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Height="20" Width="20" Background="Green"  />
+        <TextBlock x:Name="textBlock_Copy2" HorizontalAlignment="Left" Margin="30,154,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Height="20" Width="20" Background="Yellow"  />
+        <TextBlock x:Name="textBlock_Copy3" HorizontalAlignment="Left" Margin="30,189,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Height="20" Width="20" Background="Blue"  />
+        <TextBlock x:Name="textBlock_Copy5" HorizontalAlignment="Left" Margin="31,225,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Height="20" Width="20" Background="Purple"  />
+        <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="117,30,0,0" TextWrapping="Wrap" Text="Static Object" VerticalAlignment="Top" Height="21" Width="114" Foreground="Azure"/>
+        <TextBlock x:Name="textBlock1_Copy" HorizontalAlignment="Left" Margin="116,79,0,0" TextWrapping="Wrap" Text="Airport" VerticalAlignment="Top" Height="21" Width="114" Foreground="Azure"/>
+        <TextBlock x:Name="textBlock1_Copy1" HorizontalAlignment="Left" Margin="107,118,0,0" TextWrapping="Wrap" Text="Plane" VerticalAlignment="Top" Height="21" Width="114" Foreground="Azure"/>
+        <TextBlock x:Name="textBlock1_Copy2" HorizontalAlignment="Left" Margin="102,197,0,0" TextWrapping="Wrap" Text="Balon" VerticalAlignment="Top" Height="21" Width="114" Foreground="Azure"/>
+        <TextBlock x:Name="textBlock1_Copy3" HorizontalAlignment="Left" Margin="107,154,0,0" TextWrapping="Wrap" Text="Helicopter" VerticalAlignment="Top" Height="21" Width="114" Foreground="Azure"/>
+        <TextBlock x:Name="textBlock2" HorizontalAlignment="Left" Height="19" Margin="95,223,0,0" TextWrapping="Wrap" Text="Light_Aircraf" VerticalAlignment="Top" Width="97" Foreground="Azure"/>
 
     </Grid>
 </Window>

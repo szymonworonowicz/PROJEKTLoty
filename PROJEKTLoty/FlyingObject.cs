@@ -8,7 +8,7 @@ using System.Windows.Media;
 
 namespace PROJEKTLoty
 {
-    public abstract class ObjektLatajacy
+    public abstract class FlyingObject
     {
         public int ZmianaKursuTikCount = 0;
         protected double HazadrousDist = 0.5d;
@@ -20,8 +20,8 @@ namespace PROJEKTLoty
         public double X { get => x; protected set=>x=value; }
         public double Y { get => y; protected set => y = value; }
         public double Z { get => z; set => z = value; }
-        public Lotnisko _Start=null, _Finish=null;
-        public ObjektLatajacy(double _kat,double _przelot,int _predkosc)
+        public Airport _Start=null, _Finish=null;
+        public FlyingObject(double _kat,double _przelot,int _predkosc)
         {
             _Start = LosujLotnisko(Main.Lotniska);
             X = _Start.X;
@@ -34,7 +34,7 @@ namespace PROJEKTLoty
             _Finish = LosujLotnisko(Main.Lotniska);
             funkcja();
         }
-        protected  Lotnisko LosujLotnisko(List<Lotnisko> lotniska)
+        protected  Airport LosujLotnisko(List<Airport> lotniska)
         {
             Random random = new Random();
             int i=0;
@@ -49,12 +49,13 @@ namespace PROJEKTLoty
         
         public void Run()//transform pozycji
         {
+            Zblizenie();
             if (z < przelot && Czy_wystartowal == false)
                 Start();
             else if (z == przelot && OdlodLadowania()==false)
             {
                 Czy_wystartowal = true;
-                Lot();
+                Transform();
             } 
             else if(z==0 && Math.Abs(x-_Finish.X)<1 && Math.Abs(y - _Finish.Y) < 1)
             {
@@ -84,10 +85,6 @@ namespace PROJEKTLoty
             this.b_funckja= (double)_Start.Y-a_funkcja* (double)_Start.X;
             this.kat_lotu=Math.Round(Math.Atan(a_funkcja),3);//bo radiany
         }
-        private void Lot()
-        {
-                Transform();
-        }
         private double OdlLotniska()
         {
             return Math.Round(Math.Sqrt(Math.Pow(_Start.X-_Finish.X,2)+Math.Pow(_Start.Y-_Finish.Y,2)),3)*100;
@@ -104,7 +101,7 @@ namespace PROJEKTLoty
             {
                 ZmianaKursuTikCount--;
                 if (ZmianaKursuTikCount == 0)
-                    z -= 0.6d;
+                    z -= 60d;
             }
                 double dx=predkosc*20*Math.Cos(kat_lotu)/1000;
                 double dy=predkosc*20*Math.Sin(kat_lotu)/1000;
@@ -156,14 +153,14 @@ namespace PROJEKTLoty
         /// <summary>
         /// Reaguje na zbliżenie które jast przewidziane na za 3 tiki
         /// </summary>
-        /// <param name="flying">lista obiektów latających</param>
-        public void Zblizenie(LinkedList<ObjektLatajacy> flying)
+        
+        public void Zblizenie()
         {
             double _x = this.Przewidzpozycje().Item1;
             double _y = this.Przewidzpozycje().Item2;
 
             //zmiana awaryjna kursu
-            foreach (ObjektLatajacy avio in flying)
+            foreach (FlyingObject avio in Main.flying)
             {
                 //żeby samego siebie nie liczyło
                 if (avio != this)
@@ -173,26 +170,6 @@ namespace PROJEKTLoty
                         throw new CrushException(this, avio);
                 }
             }
-        }
-
-        /// <summary>
-        /// Zmiana kursu poprzez wzlot wyżej
-        /// </summary>
-        /// <param name="avio">Obiekt z którym przewidziane jest zbliżenie</param>
-        /// <param name="choice">True to zmiana kursu obiektu wywołującego funkcję a false to zmiana kursu samolotym z którym zbliżenie jest przewidziane</param>
-        public void Jakzmienickurs(ObjektLatajacy avio, bool choice)
-        {
-            if(choice)
-            {
-                this.z += 0.6d;
-                ZmianaKursuTikCount = 5;
-            }
-            else
-            {
-                avio.z += 0.6d;
-                avio.ZmianaKursuTikCount = 5;
-            }
-
         }
         private  void Start()//tick 20 s
         {

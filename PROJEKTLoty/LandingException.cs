@@ -9,10 +9,10 @@ namespace PROJEKTLoty
 {
     class LandingException:Exception
     {
-        public LandingException(ObjektLatajacy e)
+        public LandingException(FlyingObject e)
         {
             MainWindow window =(MainWindow)Application.Current.MainWindow;
-            window.wynik.Text = e.GetType().ToString() + "wyladował i przyjmuje kolejny lot z " + e._Start.nazwa + " do " + e._Finish.nazwa;
+            window.wynik.Text = e.GetType() + " wyladował i przyjmuje kolejny lot z " + e._Start.nazwa + " do " + e._Finish.nazwa;
         }
     }
 }

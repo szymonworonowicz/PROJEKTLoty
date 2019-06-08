@@ -19,9 +19,9 @@ namespace PROJEKTLoty
     /// </summary>
     public partial class Window1 : Window
     {
-        ObjektLatajacy first = null;
-        ObjektLatajacy second = null;
-        public Window1(ObjektLatajacy a, ObjektLatajacy b)
+        FlyingObject first = null;
+        FlyingObject second = null;
+        public Window1(FlyingObject a, FlyingObject b)
         {
             InitializeComponent();
             first = a;

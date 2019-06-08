@@ -68,14 +68,14 @@
     <Compile Include="Awionetka.cs" />
     <Compile Include="Balon.cs" />
     <Compile Include="Helikopter.cs" />
-    <Compile Include="Lotnisko.cs" />
+    <Compile Include="Airport.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Window1.xaml.cs">
       <DependentUpon>Window1.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ObjektLatajacy.cs" />
+    <Compile Include="FlyingObject.cs" />
     <Compile Include="ObjektStatyczny.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

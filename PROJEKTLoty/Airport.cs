@@ -7,7 +7,10 @@ using System.Windows.Media;
 
 namespace PROJEKTLoty
 {
-    public class Lotnisko
+    /// <summary>
+    /// 
+    /// </summary>
+    public class Airport
     {
         private int x;
         public int X
@@ -34,7 +37,7 @@ namespace PROJEKTLoty
             }
         }
         public string nazwa;
-        public Lotnisko(int _x,int _y,string _nazwa)
+        public Airport(int _x,int _y,string _nazwa)
         {
             this.X = _x;
             this.Y = _y;

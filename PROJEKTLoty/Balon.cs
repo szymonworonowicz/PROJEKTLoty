@@ -7,7 +7,7 @@ using System.Windows.Media;
 
 namespace PROJEKTLoty
 {
-    class Balon:ObjektLatajacy
+    class Balon:FlyingObject
     {
         protected const double _kat = 85;//degree
         protected const double _przelot = 700;//m

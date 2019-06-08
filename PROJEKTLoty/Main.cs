@@ -12,11 +12,14 @@ using System.Windows.Media;
 
 namespace PROJEKTLoty
 {
+    /// <summary>
+    /// Main class of the Program
+    /// </summary>
     public class Main
     {
         //kratka 100 km       
-        private List<ObjektLatajacy> flying;
-        public static List<Lotnisko> Lotniska = null;
+        public static List<FlyingObject> flying; ///list of flying object
+        public static List<Airport> Lotniska = null; //list of Airports
         private List<Tuple<int, int>> statyczne;
         private List<TextBlock> FlyingBlock;
         private List<TextBlock> AirpotrBlock;
@@ -27,8 +30,8 @@ namespace PROJEKTLoty
         public Main()
         {
             win = (MainWindow)Application.Current.MainWindow;//obiekt okienka, wlasciwie to poniekad referencja do niego
-            flying = new List<ObjektLatajacy>();
-            Lotniska = new List<Lotnisko>();
+            flying = new List<FlyingObject>();
+            Lotniska = new List<Airport>();
             statyczne = new List<Tuple<int, int>>();
             StaticBlock = new List<TextBlock>();
             FlyingBlock = new List<TextBlock>();
@@ -52,7 +55,7 @@ namespace PROJEKTLoty
                         int x = Convert.ToInt16(line);
                         int y = Convert.ToInt16(str.ReadLine());
                         string nazwa = str.ReadLine();
-                        Lotnisko nowe = new Lotnisko(x, y, nazwa);
+                        Airport nowe = new Airport(x, y, nazwa);
                         Lotniska.Add(nowe);
                     }
 
@@ -108,7 +111,7 @@ namespace PROJEKTLoty
         private void InicjalizacjaLotow()
         {
             Random rand = new Random();
-            ObjektLatajacy objekt = null;
+            FlyingObject objekt = null;
             int count = 0;
             for (int i = 0; i < 20; i++)
             {
@@ -183,14 +186,6 @@ namespace PROJEKTLoty
         public void Wyswietlmape()
         {
             Radar.Children.Clear();
-            Radar = null;
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
-            GC.Collect();
-            Radar = new Grid();
-            Window();
-            win.Left.Content = Radar;
-            Console.WriteLine("text {0}",flying[1].X);
             int i = 0;
             foreach (var temp in Lotniska)
             {

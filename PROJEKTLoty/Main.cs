@@ -179,7 +179,7 @@ namespace PROJEKTLoty
                     }
                 }
                 Wyswietlmape();
-                start = false;
+               //start = false;
             }
             
         }

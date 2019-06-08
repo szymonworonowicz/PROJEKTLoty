@@ -16,7 +16,7 @@ namespace PROJEKTLoty
         public CrushException(FlyingObject a, FlyingObject b)
         {
             Window1 window = new Window1(a, b);
-            window.Show();
+            window.ShowDialog();         
         }
     }
 }

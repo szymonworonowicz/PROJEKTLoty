@@ -12,7 +12,7 @@ namespace PROJEKTLoty
         protected const double _kat = 85;//degree
         protected const double _przelot = 700;//m
         protected const int _predkosc = 14;//m/s
-        public Balon(List<Lotnisko> lotniska) : base(lotniska,_kat,_przelot,_predkosc)
+        public Balon() : base(_kat,_przelot,_predkosc)
         {
 
         }

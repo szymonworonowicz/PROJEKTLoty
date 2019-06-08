@@ -16,7 +16,7 @@ namespace PROJEKTLoty
     {
         //kratka 100 km       
         private List<ObjektLatajacy> flying;
-        public static List<Lotnisko> lotniska;
+        public static List<Lotnisko> Lotniska = null;
         private List<Tuple<int, int>> statyczne;
         private List<TextBlock> FlyingBlock;
         private List<TextBlock> AirpotrBlock;
@@ -28,7 +28,7 @@ namespace PROJEKTLoty
         {
             win = (MainWindow)Application.Current.MainWindow;//obiekt okienka, wlasciwie to poniekad referencja do niego
             flying = new List<ObjektLatajacy>();
-            lotniska = new List<Lotnisko>();
+            Lotniska = new List<Lotnisko>();
             statyczne = new List<Tuple<int, int>>();
             StaticBlock = new List<TextBlock>();
             FlyingBlock = new List<TextBlock>();
@@ -53,7 +53,7 @@ namespace PROJEKTLoty
                         int y = Convert.ToInt16(str.ReadLine());
                         string nazwa = str.ReadLine();
                         Lotnisko nowe = new Lotnisko(x, y, nazwa);
-                        lotniska.Add(nowe);
+                        Lotniska.Add(nowe);
                     }
 
                 }
@@ -91,7 +91,7 @@ namespace PROJEKTLoty
                 text.Background = Brushes.BlueViolet;
                 FlyingBlock.Add(text);
             }
-            foreach (var temp in lotniska)
+            foreach (var temp in Lotniska)
             {
                 TextBlock text = new TextBlock();
                 text.Background = Brushes.Red;
@@ -131,19 +131,19 @@ namespace PROJEKTLoty
                 switch (count)
                 {
                     case 0:
-                        objekt = new Samolot(lotniska);
+                        objekt = new Samolot();
                         flying.Add(objekt);
                         break;
                     case 1:
-                        objekt = new Balon(lotniska);
+                        objekt = new Balon();
                         flying.Add(objekt);
                         break;
                     case 2:
-                        objekt = new Awionetka(lotniska);
+                        objekt = new Awionetka();
                         flying.Add(objekt);
                         break;
                     case 3:
-                        objekt = new Helikopter(lotniska);
+                        objekt = new Helikopter();
                         flying.Add(objekt);
                         break;
 
@@ -176,7 +176,14 @@ namespace PROJEKTLoty
             {
                 foreach (var temp in flying)
                 {
-                    temp.Run();
+                    try
+                    {
+                        temp.Run();
+                    }
+                    catch (LandingException)
+                    {
+                        
+                    }
                 }
                 Wyswietlmape();
                 start = false;
@@ -195,7 +202,7 @@ namespace PROJEKTLoty
             win.Left.Content = Radar;
             Console.WriteLine("text {0}",flying[1].X);
             int i = 0;
-            foreach (var temp in lotniska)
+            foreach (var temp in Lotniska)
             {
                 
                 Grid.SetColumn(AirpotrBlock[i], temp.Y);

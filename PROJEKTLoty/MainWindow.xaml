@@ -8,11 +8,9 @@
         Title="MainWindow" Height="1024" Width="1280">
     <Grid Name="MainGrid" Height="Auto" Width="Auto">
         <Frame x:Name="Left" HorizontalAlignment="Left" Height="1000" VerticalAlignment="Top" Width="1000" Navigated="Left_Navigated" Background="Black"/>
-        <Frame x:Name="Right"  HorizontalAlignment="Right" Height="1000" VerticalAlignment="Top" Width="280" Navigated="Right_Navigated" Background="LightBlue"/>
-        <Button x:Name="Start" Content="Start" HorizontalAlignment="Center" Margin="1077,66,0,0" VerticalAlignment="Top" Width="147" Height="99" Click="Start_Click"/>
-        <Button x:Name="Stop" Content="Stop" HorizontalAlignment="Left" Margin="1098,242,0,0" VerticalAlignment="Top" Width="148" Height="120" Click="Stop_Click"/>
-
-
-
+        <Frame x:Name="Right" Height="1000" VerticalAlignment="Top" Navigated="Right_Navigated" Background="LightBlue" Margin="0,0,0,-7" HorizontalAlignment="Right" Width="280" Content=""/>
+        <Button x:Name="Start" Content="Start" HorizontalAlignment="Center" Margin="1048,4,76,0" VerticalAlignment="Top" Width="148" Height="100" Click="Start_Click"/>
+        <Button x:Name="Stop" Content="Stop" HorizontalAlignment="Left" Margin="1048,148,0,0" VerticalAlignment="Top" Width="148" Height="120" Click="Stop_Click"/>
+        <TextBlock x:Name="wynik" HorizontalAlignment="Left" Margin="1014,608,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Height="289" Width="246"/>
     </Grid>
 </Window>

@@ -12,7 +12,7 @@ namespace PROJEKTLoty
         protected const double _kat = 80;//degree
         protected const double _przelot = 2000;//m
         protected const int _predkosc = 139;//m/s
-        public Helikopter(List<Lotnisko> lotniska):base(lotniska,_kat,_przelot,_predkosc)
+        public Helikopter():base(_kat,_przelot,_predkosc)
         {
             
         }

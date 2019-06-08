@@ -7,7 +7,7 @@ using System.Windows.Media;
 
 namespace PROJEKTLoty
 {
-    class Lotnisko
+    public class Lotnisko
     {
         private int x;
         public int X
@@ -34,7 +34,6 @@ namespace PROJEKTLoty
             }
         }
         public string nazwa;
-        public Brush kolor = Brushes.Purple;//kolor znaczka
         public Lotnisko(int _x,int _y,string _nazwa)
         {
             this.X = _x;

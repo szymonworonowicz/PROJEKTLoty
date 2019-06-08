@@ -19,18 +19,18 @@ namespace PROJEKTLoty
         private double a_funkcja=0,b_funckja=0,kat_lotu=0,odl_ladowania=0;
         public double X { get => x; protected set=>x=value; }
         public double Y { get => y; protected set => y = value; }
-        protected Lotnisko _Start=null, _Finish=null;
+        public Lotnisko _Start=null, _Finish=null;
         public ObjektLatajacy(double _kat,double _przelot,int _predkosc)
         {
-            _Start = LosujLotnisko(Main.lotniska);
+            _Start = LosujLotnisko(Main.Lotniska);
             X = _Start.X;
             Y = _Start.Y;
             predkosc = _predkosc;
             kat=Math.Round(Math.PI*_kat/180,3);//change to radian
             przelot=_przelot;
-            odl_ladowania=przelot*Math.Tan(kat);
+            odl_ladowania=przelot*Math.Tan(kat)/100000;
             z = 0;
-            _Finish = LosujLotnisko(Main.lotniska);
+            _Finish = LosujLotnisko(Main.Lotniska);
             funkcja();
         }
         protected  Lotnisko LosujLotnisko(List<Lotnisko> lotniska)
@@ -49,22 +49,22 @@ namespace PROJEKTLoty
         public void Run()//transform pozycji
         {
             if (z < przelot && Czy_wystartowal == false)
-                if (OdlodLadowania() == true)
-                    Finish();
-                else
                 Start();
             else if (z == przelot && OdlodLadowania()==false)
             {
                 Czy_wystartowal = true;
                 Lot();
             } 
-            else if(Czy_wystartowal==true && OdlodLadowania()==true)
-                Finish();
-            if((int)x==_Finish.X && (int)y==_Finish.Y)
+            else if(z==0)
             {
                 _Start = _Finish;
-                _Finish = LosujLotnisko(Main.lotniska);
+                _Finish = LosujLotnisko(Main.Lotniska);
+                funkcja();
+                throw new LandingException(this);
             }
+            else if(Czy_wystartowal==true && OdlodLadowania()==true)
+                Finish();
+            
         }
         private void funkcja()//funkcja lotu gdy juz wlecial na przelot
         {
@@ -90,7 +90,7 @@ namespace PROJEKTLoty
         }
         private bool OdlodLadowania()
         {
-            if (Math.Sqrt(Math.Pow(this.x - _Finish.X, 2) + Math.Pow(this.y - _Finish.Y, 2))*1000 < odl_ladowania) 
+            if (Math.Sqrt(Math.Pow(this.x - _Finish.X, 2) + Math.Pow(this.y - _Finish.Y, 2)) < odl_ladowania) //przez 5 zer bo km na metry i 1 kratka to 100 km
                 return true;
             return false;
         }
@@ -207,6 +207,11 @@ namespace PROJEKTLoty
             double skos=predkosc*time;
             double changewys=Math.Round(Math.Sin(kat)*skos);
             z-=changewys;
+            if (z < 0)
+            {
+                z = 0;
+                return;
+            }
             Transform();
         }
     }

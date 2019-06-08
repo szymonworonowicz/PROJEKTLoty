@@ -20,9 +20,9 @@ namespace PROJEKTLoty
         public double X { get => x; protected set=>x=value; }
         public double Y { get => y; protected set => y = value; }
         protected Lotnisko _Start=null, _Finish=null;
-        public ObjektLatajacy(List<Lotnisko> lotniska,double _kat,double _przelot,int _predkosc)
+        public ObjektLatajacy(double _kat,double _przelot,int _predkosc)
         {
-            _Start=LosujLotnisko(lotniska);
+            _Start = LosujLotnisko(Main.lotniska);
             X = _Start.X;
             Y = _Start.Y;
             predkosc = _predkosc;
@@ -30,10 +30,7 @@ namespace PROJEKTLoty
             przelot=_przelot;
             odl_ladowania=przelot*Math.Tan(kat);
             z = 0;
-            //do
-            //{
-               _Finish = LosujLotnisko(lotniska);
-            //} while (OdlLotniska() < 2 * odl_ladowania);
+            _Finish = LosujLotnisko(Main.lotniska);
             funkcja();
         }
         protected  Lotnisko LosujLotnisko(List<Lotnisko> lotniska)
@@ -51,7 +48,10 @@ namespace PROJEKTLoty
         
         public void Run()//transform pozycji
         {
-            if (z < przelot && Czy_wystartowal==false)
+            if (z < przelot && Czy_wystartowal == false)
+                if (OdlodLadowania() == true)
+                    Finish();
+                else
                 Start();
             else if (z == przelot && OdlodLadowania()==false)
             {
@@ -60,7 +60,11 @@ namespace PROJEKTLoty
             } 
             else if(Czy_wystartowal==true && OdlodLadowania()==true)
                 Finish();
-
+            if((int)x==_Finish.X && (int)y==_Finish.Y)
+            {
+                _Start = _Finish;
+                _Finish = LosujLotnisko(Main.lotniska);
+            }
         }
         private void funkcja()//funkcja lotu gdy juz wlecial na przelot
         {
@@ -86,7 +90,7 @@ namespace PROJEKTLoty
         }
         private bool OdlodLadowania()
         {
-            if(Math.Sqrt(Math.Pow(this.x-_Finish.X,2)+Math.Pow(this.y-_Finish.Y,2))<odl_ladowania)
+            if (Math.Sqrt(Math.Pow(this.x - _Finish.X, 2) + Math.Pow(this.y - _Finish.Y, 2))*1000 < odl_ladowania) 
                 return true;
             return false;
         }

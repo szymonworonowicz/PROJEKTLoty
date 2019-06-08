@@ -12,20 +12,27 @@ using System.Windows.Media;
 
 namespace PROJEKTLoty
 {
-    public class Start
+    public class Main
     {
         //kratka 100 km       
-        private LinkedList<ObjektLatajacy> flying;
-        static List<Lotnisko> lotniska = new List<Lotnisko>();
+        private List<ObjektLatajacy> flying;
+        public static List<Lotnisko> lotniska;
         private List<Tuple<int, int>> statyczne;
+        private List<TextBlock> FlyingBlock;
+        private List<TextBlock> AirpotrBlock;
+        private List<TextBlock> StaticBlock;
         public MainWindow win = null;
         public bool start = true;
         private Grid Radar = null;
-        public Start()
+        public Main()
         {
             win = (MainWindow)Application.Current.MainWindow;//obiekt okienka, wlasciwie to poniekad referencja do niego
-            flying = new LinkedList<ObjektLatajacy>();
+            flying = new List<ObjektLatajacy>();
+            lotniska = new List<Lotnisko>();
             statyczne = new List<Tuple<int, int>>();
+            StaticBlock = new List<TextBlock>();
+            FlyingBlock = new List<TextBlock>();
+            AirpotrBlock = new List<TextBlock>();
             Radar = new Grid();
             File();
             InicjalizacjaLotow(); //narazie skomentowane bo robie okno
@@ -73,7 +80,30 @@ namespace PROJEKTLoty
             {
                 Console.WriteLine("brak pliku");
             }
-            //wczytajmape();
+
+        }
+
+        private void Wczytajlisty()
+        {
+            foreach (var temp in flying)
+            {
+                TextBlock text = new TextBlock();
+                text.Background = Brushes.BlueViolet;
+                FlyingBlock.Add(text);
+            }
+            foreach (var temp in lotniska)
+            {
+                TextBlock text = new TextBlock();
+                text.Background = Brushes.Red;
+                AirpotrBlock.Add(text);
+            }
+            foreach (var temo in statyczne)
+            {
+                TextBlock text = new TextBlock();
+                text.Background = Brushes.White;
+                StaticBlock.Add(text);
+            }
+
         }
 
         //private void wczytajmape()
@@ -102,23 +132,24 @@ namespace PROJEKTLoty
                 {
                     case 0:
                         objekt = new Samolot(lotniska);
-                        flying.AddLast(objekt);
+                        flying.Add(objekt);
                         break;
                     case 1:
                         objekt = new Balon(lotniska);
-                        flying.AddLast(objekt);
+                        flying.Add(objekt);
                         break;
                     case 2:
                         objekt = new Awionetka(lotniska);
-                        flying.AddLast(objekt);
+                        flying.Add(objekt);
                         break;
                     case 3:
                         objekt = new Helikopter(lotniska);
-                        flying.AddLast(objekt);
+                        flying.Add(objekt);
                         break;
 
                 }
             }
+            Wczytajlisty();
         }
         public void Window()
         {
@@ -138,7 +169,6 @@ namespace PROJEKTLoty
                 RowDefinition row = new RowDefinition();
                 Radar.RowDefinitions.Add(row);
             }
-
         }
         public void Run()
         {
@@ -156,40 +186,39 @@ namespace PROJEKTLoty
         public void Wyswietlmape()
         {
             Radar.Children.Clear();
-            Radar.RowDefinitions.Clear();
-            Radar.ColumnDefinitions.Clear();
             Radar = null;
-            win.Left.Content = null;
             GC.Collect();
             GC.WaitForPendingFinalizers();
+            GC.Collect();
             Radar = new Grid();
             Window();
-            Thread.Sleep(100);
+            win.Left.Content = Radar;
+            Console.WriteLine("text {0}",flying[1].X);
+            int i = 0;
             foreach (var temp in lotniska)
             {
-                TextBlock text = new TextBlock();
-                text.Background = Brushes.Red;
-                Grid.SetColumn(text, temp.Y);
-                Grid.SetRow(text, temp.X);
-                Radar.Children.Add(text);
+                
+                Grid.SetColumn(AirpotrBlock[i], temp.Y);
+                Grid.SetRow(AirpotrBlock[i], temp.X);
+                Radar.Children.Add(AirpotrBlock[i]);
+                i++; 
 
             }
+            i = 0;
             foreach (var temp in statyczne)
             {
-                TextBlock text = new TextBlock();
-                text.Background = Brushes.White;
-                Grid.SetColumn(text, temp.Item1);
-                Grid.SetRow(text, temp.Item2);
-                Radar.Children.Add(text);
+                Grid.SetColumn(StaticBlock[i], temp.Item1);
+                Grid.SetRow(StaticBlock[i], temp.Item2);
+                Radar.Children.Add(StaticBlock[i]);
+                i++;
             }
-            Console.WriteLine();
+            i = 0;
             foreach (var temp in flying)
             {
-                TextBlock text = new TextBlock();
-                text.Background = Brushes.BlueViolet;
-                Grid.SetColumn(text, Convert.ToInt16(temp.Y));
-                Grid.SetRow(text, Convert.ToInt16(temp.X));
-                Radar.Children.Add(text);
+                Grid.SetColumn(FlyingBlock[i], Convert.ToInt16(temp.Y));
+                Grid.SetRow(FlyingBlock[i], Convert.ToInt16(temp.X));
+                Radar.Children.Add(FlyingBlock[i]);
+                i++;
             }
             win.Left.Content = Radar;
         }

@@ -16,5 +16,9 @@ namespace PROJEKTLoty
         {
             
         }
+        public override string ToString()
+        {
+            return "Helikopter "+base.ToString();
+        }
     }
 }

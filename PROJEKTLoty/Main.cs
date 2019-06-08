@@ -105,20 +105,6 @@ namespace PROJEKTLoty
             }
 
         }
-
-        //private void wczytajmape()
-        //{
-        //    foreach (var temp in lotniska)
-        //    {
-        //        TextBlock text = new TextBlock();
-        //        text.Background = Brushes.Green;
-        //        Grid.SetColumn(text, temp.Y);
-        //        Grid.SetRow(text, temp.X);
-        //        Radar.Children.Add(text);
-        //    }
-
-        //}
-
         private void InicjalizacjaLotow()
         {
             Random rand = new Random();
@@ -184,6 +170,10 @@ namespace PROJEKTLoty
                     {
                         
                     }
+                    catch(CrushException)
+                    {
+
+                    }
                 }
                 Wyswietlmape();
                 start = false;
@@ -222,10 +212,19 @@ namespace PROJEKTLoty
             i = 0;
             foreach (var temp in flying)
             {
-                Grid.SetColumn(FlyingBlock[i], Convert.ToInt16(temp.Y));
-                Grid.SetRow(FlyingBlock[i], Convert.ToInt16(temp.X));
-                Radar.Children.Add(FlyingBlock[i]);
-                i++;
+                try
+                {
+                    Grid.SetColumn(FlyingBlock[i], (int)temp.Y);
+                    Grid.SetRow(FlyingBlock[i], (int)temp.X);
+                    Radar.Children.Add(FlyingBlock[i]);
+                    i++;
+                }
+                catch (ArgumentException)
+                {
+
+                    Console.WriteLine();
+                }
+                
             }
             win.Left.Content = Radar;
         }

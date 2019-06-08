@@ -33,7 +33,6 @@ namespace PROJEKTLoty
         {
             start.start = true;
             start.Run();
-            start.start = false;
         }
 
         private void Left_Navigated(object sender, NavigationEventArgs e)

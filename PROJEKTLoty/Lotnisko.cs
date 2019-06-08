@@ -40,13 +40,9 @@ namespace PROJEKTLoty
             this.Y = _y;
             this.nazwa = _nazwa;
         }
-        public Lotnisko()
+        public override string ToString()
         {
-
-        }
-        public Lotnisko(Lotnisko lotnisko)
-        {
-
+            return nazwa + " (" + x + "," + y + ") ";  
         }
     }
 }

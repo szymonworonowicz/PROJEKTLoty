@@ -15,5 +15,9 @@ namespace PROJEKTLoty
         {
             
         }
+        public override string ToString()
+        {
+            return "Awionetka" + base.ToString();
+        }
     }
 }

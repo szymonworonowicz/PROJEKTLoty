@@ -12,7 +12,7 @@ namespace PROJEKTLoty
         public LandingException(ObjektLatajacy e)
         {
             MainWindow window =(MainWindow)Application.Current.MainWindow;
-            window.wynik.Text = e.GetType().ToString() + "wyladował i przyjmuje kolejny lot z " + e._Start + " do " + e._Finish;
+            window.wynik.Text = e.GetType().ToString() + "wyladował i przyjmuje kolejny lot z " + e._Start.nazwa + " do " + e._Finish.nazwa;
         }
     }
 }

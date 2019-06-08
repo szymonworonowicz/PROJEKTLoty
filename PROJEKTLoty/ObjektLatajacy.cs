@@ -8,9 +8,9 @@ using System.Windows.Media;
 
 namespace PROJEKTLoty
 {
-    abstract class ObjektLatajacy
+    public abstract class ObjektLatajacy
     {
-        private int ZmianaKursuTikCount = 0;
+        public int ZmianaKursuTikCount = 0;
         protected double HazadrousDist = 0.5d;
         protected int predkosc = 0;
         private double x,y,z;
@@ -19,6 +19,7 @@ namespace PROJEKTLoty
         private double a_funkcja=0,b_funckja=0,kat_lotu=0,odl_ladowania=0;
         public double X { get => x; protected set=>x=value; }
         public double Y { get => y; protected set => y = value; }
+        public double Z { get => z; set => z = value; }
         public Lotnisko _Start=null, _Finish=null;
         public ObjektLatajacy(double _kat,double _przelot,int _predkosc)
         {
@@ -55,8 +56,11 @@ namespace PROJEKTLoty
                 Czy_wystartowal = true;
                 Lot();
             } 
-            else if(z==0)
+            else if(z==0 && Math.Abs(x-_Finish.X)<1 && Math.Abs(y - _Finish.Y) < 1)
             {
+                Czy_wystartowal = false;
+                x = _Finish.X;
+                y = _Finish.Y;
                 _Start = _Finish;
                 _Finish = LosujLotnisko(Main.Lotniska);
                 funkcja();
@@ -166,7 +170,7 @@ namespace PROJEKTLoty
                 {
                     double distance = Math.Sqrt(Math.Pow(Math.Sqrt(Math.Pow(_x - avio.Przewidzpozycje().Item1, 2) + Math.Pow(_y - avio.Przewidzpozycje().Item2, 2)), 2) + Math.Pow(this.z - avio.z, 2));
                     if (distance < HazadrousDist)
-                        Jakzmienickurs( avio, true );
+                        throw new CrushException(this, avio);
                 }
             }
         }
@@ -212,7 +216,12 @@ namespace PROJEKTLoty
                 z = 0;
                 return;
             }
-            Transform();
+            if(!((Math.Abs(x-_Finish.X)<1 &&  (Math.Abs(y - _Finish.Y) < 1 ))))
+                Transform();
+        }
+        public override string ToString()
+        {
+            return "from" + _Start.ToString() + " to " + _Finish.ToString();
         }
     }
 }

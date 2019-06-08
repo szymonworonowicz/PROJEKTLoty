@@ -6,7 +6,17 @@
         xmlns:local="clr-namespace:PROJEKTLoty"
         mc:Ignorable="d"
         Title="Window1" Height="450" Width="800">
-    <Grid>
-        
+    <Grid Background="Aquamarine">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="323*"/>
+            <ColumnDefinition Width="469*"/>
+        </Grid.ColumnDefinitions>
+        <Label  Content="Wykryto potencjalne zderzenie " HorizontalAlignment="Center" Height="43" Margin="108,60,108,0" VerticalAlignment="Top" Width="576" HorizontalContentAlignment="Center" FontSize="15" Grid.ColumnSpan="2"/>
+        <Label Content="Którego samolotu chcesz zmienic trase" HorizontalAlignment="Left" Margin="86,146,0,0" VerticalAlignment="Top" Width="596" FontSize="15" HorizontalContentAlignment="Center" Grid.ColumnSpan="2"/>
+        <Button x:Name="Button1" Content="Samolot1" HorizontalAlignment="Left" Margin="100,224,0,0" VerticalAlignment="Top" Width="151" Height="75" MouseMove="Button1_MouseMove" Click="Button1_Click" MouseLeave="Button1_MouseLeave"/>
+        <Button x:Name="Button2" Content="Samolot2" HorizontalAlignment="Left" Margin="185.507,224,0,0" VerticalAlignment="Top" Width="151" Height="75" MouseMove="Button2_MouseMove" MouseLeave="Button2_MouseLeave" Grid.Column="1" Click="Button2_Click"/>
+        <TextBlock x:Name="ALt1" HorizontalAlignment="Left" Margin="219,212,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="302" Height="87" Grid.ColumnSpan="2"/>
+
+
     </Grid>
 </Window>

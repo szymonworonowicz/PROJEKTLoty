@@ -17,11 +17,16 @@ namespace PROJEKTLoty
     /// <summary>
     /// Interaction logic for Window1.xaml
     /// </summary>
-    public partial class Window1 : Window
+    public partial class CrushExceptionWindow : Window
     {
         FlyingObject first = null;
         FlyingObject second = null;
-        public Window1(FlyingObject a, FlyingObject b)
+        /// <summary>
+        /// Constructor of CrushExceptionWindow
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        public CrushExceptionWindow(FlyingObject a, FlyingObject b)
         {
             InitializeComponent();
             first = a;
@@ -51,14 +56,14 @@ namespace PROJEKTLoty
         private void Button1_Click(object sender, RoutedEventArgs e)
         {
             first.Z += 0.6d;
-            first.ZmianaKursuTikCount = 5;
+            first.ChangeCourseTikCount = 5;
             this.Close();
         }
 
         private void Button2_Click(object sender, RoutedEventArgs e)
         {
             second.Z += 0.6d;
-            second.ZmianaKursuTikCount = 5;
+            second.ChangeCourseTikCount = 5;
             this.Close();
         }
     }

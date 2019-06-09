@@ -17,31 +17,60 @@ namespace PROJEKTLoty
     /// </summary>
     public class Main
     {
-        //kratka 100 km       
-        public static List<FlyingObject> flying; ///list of flying object
-        public static List<Airport> Lotniska = null; //list of Airports
-        private List<Tuple<int, int>> statyczne;
+        /// <summary>
+        /// list of flying objects
+        /// </summary>
+        public static List<FlyingObject> flying;
+        /// <summary>
+        /// static list of Aircrafts
+        /// </summary>
+        public static List<Airport> Aircrafts;
+        /// <summary>
+        /// list of static object
+        /// </summary>
+        private List<Tuple<int, int>> staticobject;
+        /// <summary>
+        /// List of TextBlocks to draw FlyingObject on the map 
+        /// </summary>
         private List<TextBlock> FlyingBlock;
-        private List<TextBlock> AirpotrBlock;
+        /// <summary>
+        /// List of TextBlocks to draw AirCrafts on the map 
+        /// </summary>
+        private List<TextBlock> AirportBlock;
+        /// <summary>
+        /// List of TextBlocks to draw static object on the map
+        /// </summary>        
         private List<TextBlock> StaticBlock;
+        /// <summary>
+        /// reference to MainWindow window
+        /// </summary>
         public MainWindow win = null;
-        public bool start = true;
+        /// <summary>
+        /// Grid for creating a map 
+        /// </summary>
         private Grid Radar = null;
+        /// <summary>
+        /// Construktor
+        /// </summary>
         public Main()
         {
             win = (MainWindow)Application.Current.MainWindow;//obiekt okienka, wlasciwie to poniekad referencja do niego
             flying = new List<FlyingObject>();
-            Lotniska = new List<Airport>();
-            statyczne = new List<Tuple<int, int>>();
+            Aircrafts = new List<Airport>();
+            staticobject = new List<Tuple<int, int>>();
             StaticBlock = new List<TextBlock>();
             FlyingBlock = new List<TextBlock>();
-            AirpotrBlock = new List<TextBlock>();
+            AirportBlock = new List<TextBlock>();
             Radar = new Grid();
             File();
             InicjalizacjaLotow(); //narazie skomentowane bo robie okno
             Window();
-            //Wyswietlmape();
         }
+
+        /// <summary>
+        /// Reading airfields and static objects from files
+        /// </summary>
+        /// <exception cref="IOException"/>
         public void File()
         {
             try
@@ -55,7 +84,7 @@ namespace PROJEKTLoty
                         int y = Convert.ToInt16(str.ReadLine());
                         string nazwa = str.ReadLine();
                         Airport nowe = new Airport(x, y, nazwa);
-                        Lotniska.Add(nowe);
+                        Aircrafts.Add(nowe);
                     }
 
                 }
@@ -74,7 +103,7 @@ namespace PROJEKTLoty
                         int x = Convert.ToInt16(line);
                         int y = Convert.ToInt16(str.ReadLine());
                         int z = Convert.ToInt16(str.ReadLine());
-                        statyczne.Add(new Tuple<int, int>(x, y));
+                        staticobject.Add(new Tuple<int, int>(x, y));
                     }
                 }
             }
@@ -84,22 +113,25 @@ namespace PROJEKTLoty
             }
 
         }
-
+        /// <summary>
+        /// Inicialization of TextBlocks list
+        /// </summary>
         private void Wczytajlisty()
         {
+            
             foreach (var temp in flying)
             {
                 TextBlock text = new TextBlock();
                 text.Background = temp.ReturnColor() ;
                 FlyingBlock.Add(text);
             }
-            foreach (var temp in Lotniska)
+            foreach (var temp in Aircrafts)
             {
                 TextBlock text = new TextBlock();
                 text.Background = Brushes.Red;
-                AirpotrBlock.Add(text);
+                AirportBlock.Add(text);
             }
-            foreach (var temo in statyczne)
+            foreach (var temo in staticobject)
             {
                 TextBlock text = new TextBlock();
                 text.Background = Brushes.White;
@@ -107,6 +139,9 @@ namespace PROJEKTLoty
             }
 
         }
+        /// <summary>
+        /// Initiating flying object list
+        /// </summary>
         private void InicjalizacjaLotow()
         {
             Random rand = new Random();
@@ -119,19 +154,19 @@ namespace PROJEKTLoty
                 switch (count)
                 {
                     case 0:
-                        objekt = new Samolot();
+                        objekt = new Plane();
                         flying.Add(objekt);
                         break;
                     case 1:
-                        objekt = new Balon();
+                        objekt = new Balloon();
                         flying.Add(objekt);
                         break;
                     case 2:
-                        objekt = new Awionetka();
+                        objekt = new LittlePlane();
                         flying.Add(objekt);
                         break;
                     case 3:
-                        objekt = new Helikopter();
+                        objekt = new Helicopter();
                         flying.Add(objekt);
                         break;
 
@@ -139,6 +174,9 @@ namespace PROJEKTLoty
             }
             Wczytajlisty();
         }
+        /// <summary>
+        /// Generation of the MainWindow 
+        /// </summary>
         public void Window()
         {
             Radar.Background = new SolidColorBrush(Colors.Black);
@@ -158,6 +196,11 @@ namespace PROJEKTLoty
                 Radar.RowDefinitions.Add(row);
             }
         }
+        /// <summary>
+        /// Transform the List of FlyingObject
+        /// </summary>
+        /// <exception cref="CrushException"/>
+
         public void Run()
         { 
             for(int i=0;i<2;i++)
@@ -167,34 +210,34 @@ namespace PROJEKTLoty
                     {
                         temp.Run();
                     }
-                    catch (LandingException)
-                    {
-                        
-                    }
                     catch(CrushException)
                     {
 
                     }
                 }
             Thread.Sleep(10);
-            Wyswietlmape();
+            DrawMap();
         }
-        public void Wyswietlmape()
+        /// <summary>
+        /// Draw a map
+        /// </summary>
+        /// <exception cref="ArgumentException"/>
+        public void DrawMap()
         {
             Radar.Children.Clear();
             int i = 0;
-            foreach (var temp in Lotniska)
+            foreach (var temp in Aircrafts)
             {
-                AirpotrBlock[i].Text = (i + 1).ToString();
-                AirpotrBlock[i].FontSize =9;
-                Grid.SetColumn(AirpotrBlock[i], temp.Y);
-                Grid.SetRow(AirpotrBlock[i], temp.X);
-                Radar.Children.Add(AirpotrBlock[i]);
+                AirportBlock[i].Text = (i + 1).ToString();
+                AirportBlock[i].FontSize =7;
+                Grid.SetColumn(AirportBlock[i], temp.Y);
+                Grid.SetRow(AirportBlock[i], temp.X);
+                Radar.Children.Add(AirportBlock[i]);
                 i++; 
 
             }
             i = 0;
-            foreach (var temp in statyczne)
+            foreach (var temp in staticobject)
             {
                 Grid.SetColumn(StaticBlock[i], temp.Item1);
                 Grid.SetRow(StaticBlock[i], temp.Item2);
@@ -213,7 +256,7 @@ namespace PROJEKTLoty
                 }
                 catch (ArgumentException)
                 {
-                    Console.WriteLine();
+                    
                 }
                 
             }

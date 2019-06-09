@@ -1,0 +1,545 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PROJEKTLoty</name>
+    </assembly>
+    <members>
+        <member name="M:PROJEKTLoty.CrushException.#ctor(PROJEKTLoty.FlyingObject,PROJEKTLoty.FlyingObject)">
+            <summary>
+            exception to changing altitude in the event of a collision
+            </summary>
+            <param name="a">first object</param>
+            <param name="b">second object</param>
+        </member>
+        <member name="T:PROJEKTLoty.Legend">
+            <summary>
+            Interaction logic for Legend.xaml
+            </summary>
+            <summary>
+            Legend
+            </summary>
+        </member>
+        <member name="M:PROJEKTLoty.Legend.#ctor">
+            <summary>
+            Legend window Construktor
+            </summary>
+        </member>
+        <member name="M:PROJEKTLoty.Legend.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:PROJEKTLoty.MainWindow">
+            <summary>
+            Main program Window 
+            </summary>
+            <summary>
+            MainWindow
+            </summary>
+        </member>
+        <member name="F:PROJEKTLoty.MainWindow.start">
+            <summary>
+            Main class object
+            </summary>
+        </member>
+        <member name="M:PROJEKTLoty.MainWindow.#ctor">
+            <summary>
+            MainWindow constructor
+            </summary>
+        </member>
+        <member name="M:PROJEKTLoty.MainWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="F:PROJEKTLoty.Plane._kat">
+            <summary>
+            degree
+            </summary>
+        </member>
+        <member name="F:PROJEKTLoty.Plane._przelot">
+            <summary>
+            passage
+            </summary>
+        </member>
+        <member name="F:PROJEKTLoty.Plane._predkosc">
+            <summary>
+            speed
+            </summary>
+        </member>
+        <member name="M:PROJEKTLoty.Plane.#ctor">
+            <summary>
+            Object construktor
+            </summary>
+        </member>
+        <member name="M:PROJEKTLoty.Plane.ToString">
+            <summary>
+            Text representation of object
+            </summary>
+            <returns>text representation</returns>
+        </member>
+        <member name="M:PROJEKTLoty.Plane.ReturnColor">
+            <summary>
+            return Colour of an object marker
+            </summary>
+            <returns>Colour of an object marker</returns>
+        </member>
+        <member name="T:PROJEKTLoty.App">
+            <summary>
+            Interaction logic for App.xaml
+            </summary>
+            <summary>
+            App
+            </summary>
+        </member>
+        <member name="M:PROJEKTLoty.App.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="M:PROJEKTLoty.App.Main">
+            <summary>
+            Application Entry Point.
+            </summary>
+        </member>
+        <member name="F:PROJEKTLoty.LittlePlane._degree">
+            <summary>
+            degree
+            </summary>
+        </member>
+        <member name="F:PROJEKTLoty.LittlePlane._passage">
+            <summary>
+            passage
+            </summary>
+        </member>
+        <member name="F:PROJEKTLoty.LittlePlane._speed">
+            <summary>
+            speed
+            </summary>
+        </member>
+        <member name="M:PROJEKTLoty.LittlePlane.#ctor">
+            <summary>
+            Object construktor
+            </summary>
+        </member>
+        <member name="M:PROJEKTLoty.LittlePlane.ToString">
+            <summary>
+            Text representation of object
+            </summary>
+            <returns>text representation</returns>
+        </member>
+        <member name="M:PROJEKTLoty.LittlePlane.ReturnColor">
+            <summary>
+            return Colour of an object marker
+            </summary>
+            <returns>Colour of an object marker</returns>
+        </member>
+        <member name="F:PROJEKTLoty.Balloon._degree">
+            <summary>
+            degree
+            </summary>
+        </member>
+        <member name="F:PROJEKTLoty.Balloon.passage">
+            <summary>
+            passage
+            </summary>
+        </member>
+        <member name="F:PROJEKTLoty.Balloon._speed">
+            <summary>
+            speed
+            </summary>
+        </member>
+        <member name="M:PROJEKTLoty.Balloon.#ctor">
+            <summary>
+            Object construktor
+            </summary>
+        </member>
+        <member name="M:PROJEKTLoty.Balloon.ToString">
+            <summary>
+            Text representation of object
+            </summary>
+            <returns>text representation</returns>
+        </member>
+        <member name="M:PROJEKTLoty.Balloon.ReturnColor">
+            <summary>
+            return Colour of an object marker
+            </summary>
+            <returns>Colour of an object marker</returns>
+        </member>
+        <member name="F:PROJEKTLoty.Helicopter._degree">
+            <summary>
+            degree
+            </summary>
+        </member>
+        <member name="F:PROJEKTLoty.Helicopter._passage">
+            <summary>
+            passage
+            </summary>
+        </member>
+        <member name="F:PROJEKTLoty.Helicopter._speed">
+            <summary>
+            speed
+            </summary>
+        </member>
+        <member name="M:PROJEKTLoty.Helicopter.#ctor">
+            <summary>
+            Object construktor
+            </summary>
+        </member>
+        <member name="M:PROJEKTLoty.Helicopter.ToString">
+            <summary>
+            Text representation of object
+            </summary>
+            <returns>text representation</returns>
+        </member>
+        <member name="M:PROJEKTLoty.Helicopter.ReturnColor">
+            <summary>
+            return Colour of an object marker
+            </summary>
+            <returns>Colour of an object marker</returns>
+        </member>
+        <member name="T:PROJEKTLoty.Airport">
+            <summary>
+            Aircraft class
+            </summary>
+        </member>
+        <member name="F:PROJEKTLoty.Airport.x">
+            <summary>
+             X coordinate of airfield
+            </summary>
+        </member>
+        <member name="P:PROJEKTLoty.Airport.X">
+            <value> x value</value>
+        </member>
+        <member name="F:PROJEKTLoty.Airport.y">
+            <summary>
+             Y coordinate of airfield
+            </summary>
+        </member>
+        <member name="P:PROJEKTLoty.Airport.Y">
+            <value> y value</value>
+        </member>
+        <member name="F:PROJEKTLoty.Airport.name">
+            <summary>
+            name of the aircraft
+            </summary>
+        </member>
+        <member name="M:PROJEKTLoty.Airport.#ctor(System.Int32,System.Int32,System.String)">
+            <summary>
+            Airfields constructor
+            </summary>
+            <param name="_x">The X coordinate</param>
+            <param name="_y">The Y coordinate</param>
+            <param name="_nazwa">Name of an airfield</param>
+        </member>
+        <member name="M:PROJEKTLoty.Airport.ToString">
+            <summary>
+            Return String representation of Airport
+            </summary>
+            <returns> String representation of Airport</returns>
+        </member>
+        <member name="T:PROJEKTLoty.Main">
+            <summary>
+            Main class of the Program
+            </summary>
+        </member>
+        <member name="F:PROJEKTLoty.Main.flying">
+            <summary>
+            list of flying objects
+            </summary>
+        </member>
+        <member name="F:PROJEKTLoty.Main.Aircrafts">
+            <summary>
+            static list of Aircrafts
+            </summary>
+        </member>
+        <member name="F:PROJEKTLoty.Main.staticobject">
+            <summary>
+            list of static object
+            </summary>
+        </member>
+        <member name="F:PROJEKTLoty.Main.FlyingBlock">
+            <summary>
+            List of TextBlocks to draw FlyingObject on the map 
+            </summary>
+        </member>
+        <member name="F:PROJEKTLoty.Main.AirportBlock">
+            <summary>
+            List of TextBlocks to draw AirCrafts on the map 
+            </summary>
+        </member>
+        <member name="F:PROJEKTLoty.Main.StaticBlock">
+            <summary>
+            List of TextBlocks to draw static object on the map
+            </summary>        
+        </member>
+        <member name="F:PROJEKTLoty.Main.win">
+            <summary>
+            reference to MainWindow window
+            </summary>
+        </member>
+        <member name="F:PROJEKTLoty.Main.Radar">
+            <summary>
+            Grid for creating a map 
+            </summary>
+        </member>
+        <member name="M:PROJEKTLoty.Main.#ctor">
+            <summary>
+            Construktor
+            </summary>
+        </member>
+        <member name="M:PROJEKTLoty.Main.File">
+            <summary>
+            Reading airfields and static objects from files
+            </summary>
+            <exception cref="T:System.IO.IOException"/>
+        </member>
+        <member name="M:PROJEKTLoty.Main.Wczytajlisty">
+            <summary>
+            Inicialization of TextBlocks list
+            </summary>
+        </member>
+        <member name="M:PROJEKTLoty.Main.InicjalizacjaLotow">
+            <summary>
+            Initiating flying object list
+            </summary>
+        </member>
+        <member name="M:PROJEKTLoty.Main.Window">
+            <summary>
+            Generation of the MainWindow 
+            </summary>
+        </member>
+        <member name="M:PROJEKTLoty.Main.Run">
+            <summary>
+            Transform the List of FlyingObject
+            </summary>
+            <exception cref="T:PROJEKTLoty.CrushException"/>
+        </member>
+        <member name="M:PROJEKTLoty.Main.DrawMap">
+            <summary>
+            Draw a map
+            </summary>
+            <exception cref="T:System.ArgumentException"/>
+        </member>
+        <member name="T:PROJEKTLoty.CrushExceptionWindow">
+            <summary>
+            Interaction logic for Window1.xaml
+            </summary>
+            <summary>
+            CrushExceptionWindow
+            </summary>
+        </member>
+        <member name="M:PROJEKTLoty.CrushExceptionWindow.#ctor(PROJEKTLoty.FlyingObject,PROJEKTLoty.FlyingObject)">
+            <summary>
+            Constructor of CrushExceptionWindow
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+        </member>
+        <member name="M:PROJEKTLoty.CrushExceptionWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:PROJEKTLoty.FlyingObject">
+            <summary>
+            Anbstact class of FlyingObject 
+            </summary>
+        </member>
+        <member name="F:PROJEKTLoty.FlyingObject.ZmianaKursuTikCount">
+            <summary>
+             A wway to count how many tics therre are left for object to fly at elevated altitude
+            </summary>
+        </member>
+        <member name="F:PROJEKTLoty.FlyingObject.HazadrousDist">
+            <summary>
+            Distance of approach which is assumed as hazardous
+            </summary>
+        </member>
+        <member name="F:PROJEKTLoty.FlyingObject.index">
+            <summary>
+            object index
+            </summary>
+        </member>
+        <member name="F:PROJEKTLoty.FlyingObject.predkosc">
+            <summary>
+            Objects speed
+            </summary>
+        </member>
+        <member name="F:PROJEKTLoty.FlyingObject.x">
+            <summary>
+            Objects position
+            </summary>
+        </member>
+        <member name="F:PROJEKTLoty.FlyingObject.y">
+            <summary>
+            Objects position
+            </summary>
+        </member>
+        <member name="F:PROJEKTLoty.FlyingObject.z">
+            <summary>
+            Objects position
+            </summary>
+        </member>
+        <member name="F:PROJEKTLoty.FlyingObject.kat">
+            <summary>
+            An angle at which object lands and starts as well as its flight altidute
+            </summary>
+        </member>
+        <member name="F:PROJEKTLoty.FlyingObject.przelot">
+            <summary>
+            max flight altitude
+            </summary>
+        </member>
+        <member name="F:PROJEKTLoty.FlyingObject.Czy_wystartowal">
+            <summary>
+            variable indicating whether the object started if true -started
+            </summary>
+        </member>
+        <member name="F:PROJEKTLoty.FlyingObject.a_funkcja">
+            <summary>
+            a and b from the linear function y = ax + b between the start and end Airfields and angle from this function
+            </summary>
+        </member>
+        <member name="F:PROJEKTLoty.FlyingObject.b_funckja">
+            <summary>
+            a and b from the linear function y = ax + b between the start and end Airfields and angle from this function
+            </summary>
+        </member>
+        <member name="F:PROJEKTLoty.FlyingObject.kat_lotu">
+            <summary>
+            a and b from the linear function y = ax + b between the start and end Airfields and angle from this function
+            </summary>
+        </member>
+        <member name="F:PROJEKTLoty.FlyingObject.odl_ladowania">
+            <summary>
+            the minimum distance at which a flying object can discharge
+            </summary>
+        </member>
+        <member name="P:PROJEKTLoty.FlyingObject.X">
+            <value>x value</value>
+        </member>
+        <member name="P:PROJEKTLoty.FlyingObject.Y">
+            <value>y value</value>
+        </member>
+        <member name="P:PROJEKTLoty.FlyingObject.Z">
+            <value>z value</value>
+        </member>
+        <member name="F:PROJEKTLoty.FlyingObject._Start">
+            <summary>
+             Airfields at which the object starts and ends
+            </summary>
+        </member>
+        <member name="F:PROJEKTLoty.FlyingObject._Finish">
+            <summary>
+             Airfields at which the object starts and ends
+            </summary>
+        </member>
+        <member name="M:PROJEKTLoty.FlyingObject.#ctor(System.Double,System.Double,System.Int32)">
+            <summary>
+            A constructor of flying object
+            </summary>
+            <param name="_predkosc">Flying object speed</param>
+            <param name="_kat">Angle of flight at start and end</param>
+            <param name="_przelot">Flight altitude at which the flying object will aim to stay</param>
+        </member>
+        <member name="M:PROJEKTLoty.FlyingObject.LosujLotnisko(System.Collections.Generic.List{PROJEKTLoty.Airport})">
+            <summary>
+            Randomly selects airfield
+            </summary>
+            <param name="lotniska">Airfield list</param>
+            <returns>Randomly chosen airfield</returns>
+        </member>
+        <member name="M:PROJEKTLoty.FlyingObject.Run">
+            <summary>
+            Function for managing flight from start to end
+            </summary>
+        </member>
+        <member name="M:PROJEKTLoty.FlyingObject.funkcja">
+            <summary>
+            Function that runs as the flying object is at its flight altitude
+            </summary>
+            <exception cref="T:System.DivideByZeroException"/>
+        </member>
+        <member name="M:PROJEKTLoty.FlyingObject.OdlLotniska">
+            <summary>
+            Calculates distance from starting point to the end
+            </summary>
+            <returns>Distance from starting point to the end</returns>
+        </member>
+        <member name="M:PROJEKTLoty.FlyingObject.OdlodLadowania">
+            <summary>
+            Function that checks distance from landing
+            </summary>
+            <returns>Returns true if the remaining distance is less than previously set landing distance, otherwise it returns false</returns>
+        </member>
+        <member name="M:PROJEKTLoty.FlyingObject.Odlfinish">
+            <summary>
+            Function that checks distance from finish Aircraft
+            </summary>
+            <returns>Distance form object to finish aircraft</returns>
+        </member>
+        <member name="M:PROJEKTLoty.FlyingObject.Transform">
+            <summary>
+            Function that is responsible for updating flying object variables
+            </summary>
+        </member>
+        <member name="M:PROJEKTLoty.FlyingObject.TransformRet(System.Tuple{System.Int32,System.Int32})">
+            <summary>
+            A method for predicting future position without changing object position
+            </summary>
+            /// <param name="tup">Position from which you'll get new predicted one</param>
+            <returns>Position after transform</returns>
+        </member>
+        <member name="M:PROJEKTLoty.FlyingObject.Przewidzpozycje">
+            <summary>
+            Gives predicted position 3 ticks in the future
+            </summary>
+            <returns>Predicted position</returns>
+        </member>
+        <member name="M:PROJEKTLoty.FlyingObject.Zblizenie">
+            <summary>
+            Reacts to approach in 3 tics
+            </summary>
+            <returns> Throw CrushException when object cam colides</returns>
+        </member>
+        <member name="M:PROJEKTLoty.FlyingObject.Start">
+            <summary>
+            Function called at the start of flight
+            </summary>
+        </member>
+        <member name="M:PROJEKTLoty.FlyingObject.Finish">
+            <summary>
+            Function called at the end of flight
+            </summary>
+        </member>
+        <member name="M:PROJEKTLoty.FlyingObject.ToString">
+            <summary>
+            text representation of the object
+            </summary>
+            <return>otext representation of the object</return>
+        </member>
+        <member name="M:PROJEKTLoty.FlyingObject.ReturnColor">
+            <summary>
+            return Colour of an object  marker
+            </summary>
+            <return> marker color</return>
+        </member>
+        <member name="T:PROJEKTLoty.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:PROJEKTLoty.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:PROJEKTLoty.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+    </members>
+</doc>

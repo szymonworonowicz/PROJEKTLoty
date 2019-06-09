@@ -8,37 +8,90 @@ using System.Windows.Media;
 
 namespace PROJEKTLoty
 {
+    /// <summary>
+    /// Anbstact class of FlyingObject 
+    /// </summary>
     public abstract class FlyingObject
     {
-        public int ZmianaKursuTikCount = 0;
+        /// <summary>
+        ///  A wway to count how many tics therre are left for object to fly at elevated altitude
+        /// </summary>
+        public int ChangeCourseTikCount = 0;
+        /// <summary>
+        /// Distance of approach which is assumed as hazardous
+        /// </summary>
         protected double HazadrousDist = 0.5d;
         private static int indexer = 1;
+        /// <summary>
+        /// object index
+        /// </summary>
         public int index = 0;
-        protected int predkosc = 0;
+        /// <summary>
+        /// Objects speed
+        /// </summary>
+        protected int speed = 0;
+        /// <summary>
+        /// Objects position
+        /// </summary>
         private double x,y,z;
-        protected double kat, przelot;
-        private bool Czy_wystartowal = false;
-        public double a_funkcja = 0, b_funckja = 0, kat_lotu = 0, odl_ladowania = 0;//zmienic na private
+        /// <summary>
+        /// An angle at which object lands and starts as well as its flight altidute
+        /// </summary>
+        protected double degree;
+        /// <summary>
+        /// max flight altitude
+        /// </summary>
+        protected double passage;
+        /// <summary>
+        /// variable indicating whether the object started if true -started
+        /// </summary>
+        private bool Is_started = false;
+        /// <summary>
+        /// a and b from the linear function y = ax + b between the start and end Airfields and angle from this function
+        /// </summary>
+        private double a_function = 0, b_function = 0, flight_degree = 0;
+        /// <summary>
+        /// the minimum distance at which a flying object can discharge
+        /// </summary>
+        private double land_distance;
+        /// <value>x value</value>
         public double X { get => x; protected set=>x=value; }
+        /// <value>y value</value>
         public double Y { get => y; protected set => y = value; }
+        /// <value>z value</value>
         public double Z { get => z; set => z = value; }
+        /// <summary>
+        ///  Airfields at which the object starts and ends
+        /// </summary>
         public Airport _Start=null, _Finish=null;
+
+        /// <summary>
+        /// A constructor of flying object
+        /// </summary>
+        /// <param name="_predkosc">Flying object speed</param>
+        /// <param name="_kat">Angle of flight at start and end</param>
+        /// <param name="_przelot">Flight altitude at which the flying object will aim to stay</param>
         public FlyingObject(double _kat,double _przelot,int _predkosc)
         {
-            _Start = LosujLotnisko(Main.Lotniska);
+            _Start = LosujLotnisko(Main.Aircrafts);
             X = _Start.X;
             Y = _Start.Y;
-            predkosc = _predkosc;
-            kat=Math.Round(Math.PI*_kat/180,3);//change to radian
-            przelot=_przelot;
-            odl_ladowania=przelot*Math.Tan(kat)/10000;
+            speed = _predkosc;
+            degree=Math.Round(Math.PI*_kat/180,3);//change to radian
+            passage=_przelot;
+            land_distance=passage*Math.Tan(degree)/10000;
             z = 0;
-            _Finish = LosujLotnisko(Main.Lotniska);
+            _Finish = LosujLotnisko(Main.Aircrafts);
             funkcja();
             index = indexer;
             indexer++;
         }
-        protected  Airport LosujLotnisko(List<Airport> lotniska)
+        /// <summary>
+        /// Randomly selects airfield
+        /// </summary>
+        /// <param name="lotniska">Airfield list</param>
+        /// <returns>Randomly chosen airfield</returns>
+        protected Airport LosujLotnisko(List<Airport> lotniska)
         {
             Random random = new Random();
             int i=0;
@@ -50,19 +103,17 @@ namespace PROJEKTLoty
             } while (this._Start == lotniska[i]);
             return lotniska[i] ;
         }
-        
-        public void Run()//transform pozycji
+        /// <summary>
+        /// Function for managing flight from start to end
+        /// </summary>
+        public void Run()
         {
             Zblizenie();
-            if (Odlfinish() < 5)
-            {
-                Console.WriteLine();
-            }
-            if (z < przelot && Czy_wystartowal == false)
+            if (z < passage && Is_started == false)
                 Start();
             else if (OdlodLadowania()==false)
             {
-                Czy_wystartowal = true;
+                Is_started = true;
                 Transform();
             }
              
@@ -70,44 +121,63 @@ namespace PROJEKTLoty
                 Finish();
             
         }
-        private void funkcja()//funkcja lotu gdy juz wlecial na przelot
+        /// <summary>
+        /// Function that runs as the flying object is at its flight altitude
+        /// </summary>
+        /// <exception cref="DivideByZeroException"/>
+        private void funkcja()
         {
             try
             {
-                this.a_funkcja =(double) (_Start.Y - _Finish.Y) / (double)(_Start.X - _Finish.X);
+                this.a_function =(double) (_Start.Y - _Finish.Y) / (double)(_Start.X - _Finish.X);
             }
             catch (DivideByZeroException)
             {
 
-                this.a_funkcja = 0;
+                this.a_function = 0;
             }    
-            this.b_funckja= (double)_Start.Y-a_funkcja* (double)_Start.X;
-            this.kat_lotu=Math.Round(Math.Atan(a_funkcja),3);//bo radiany
+            this.b_function= (double)_Start.Y-a_function* (double)_Start.X;
+            this.flight_degree=Math.Round(Math.Atan(a_function),3);//bo radiany
         }
+        /// <summary>
+        /// Calculates distance from starting point to the end
+        /// </summary>
+        /// <returns>Distance from starting point to the end</returns>
         private double OdlLotniska()
         {
             return Math.Round(Math.Sqrt(Math.Pow(_Start.X-_Finish.X,2)+Math.Pow(_Start.Y-_Finish.Y,2)),3)*100 ;
         }
+        /// <summary>
+        /// Function that checks distance from landing
+        /// </summary>
+        /// <returns>Returns true if the remaining distance is less than previously set landing distance, otherwise it returns false</returns>
         private bool OdlodLadowania()
         {
-            if (Odlfinish() < odl_ladowania) 
+            if (Odlfinish() < land_distance) 
                 return true;
             return false;
         }
+        /// <summary>
+        /// Function that checks distance from finish Aircraft
+        /// </summary>
+        /// <returns>Distance form object to finish aircraft</returns>
         private double Odlfinish()
         {
             return Math.Sqrt(Math.Pow(this.x - _Finish.X, 2) + Math.Pow(this.y - _Finish.Y, 2));
         }
+        /// <summary>
+        /// Function that is responsible for updating flying object variables
+        /// </summary>
         private void Transform()
         {
-            if (ZmianaKursuTikCount > 0)
+            if (ChangeCourseTikCount > 0)
             {
-                ZmianaKursuTikCount--;
-                if (ZmianaKursuTikCount == 0)
+                ChangeCourseTikCount--;
+                if (ChangeCourseTikCount == 0)
                     z -= 60d;
             }
-                double dx=predkosc*10*Math.Cos(kat_lotu)/1000;
-                double dy=predkosc*10*Math.Sin(kat_lotu)/1000;
+                double dx=speed*10*Math.Cos(flight_degree)/1000;
+                double dy=speed*10*Math.Sin(flight_degree)/1000;
             if (_Start.X < _Finish.X)
                 x += Math.Abs(dx);
             else
@@ -125,8 +195,8 @@ namespace PROJEKTLoty
         /// <returns>Position after transform</returns>
         private Tuple<int,int> TransformRet(Tuple<int, int> tup)
         {
-            double dx = predkosc * 10 * Math.Cos(kat_lotu);
-            double dy = predkosc * 10 * Math.Sin(kat_lotu);
+            double dx = speed * 10 * Math.Cos(flight_degree);
+            double dy = speed * 10 * Math.Sin(flight_degree);
             // position it returns
             double xRet, yRet;
             if (_Start.X < _Finish.X)
@@ -143,7 +213,6 @@ namespace PROJEKTLoty
         /// <summary>
         /// Gives predicted position 3 ticks in the future
         /// </summary>
-        /// <param name="objekt">Flying object of which future position we seek and Yoda it sounds kind of like :-P</param>
         /// <returns>Predicted position</returns>
         public Tuple<int,int> Przewidzpozycje()
         {
@@ -154,9 +223,9 @@ namespace PROJEKTLoty
         }
 
         /// <summary>
-        /// Reaguje na zbliżenie które jast przewidziane na za 3 tiki
+        /// Reacts to approach in 3 tics
         /// </summary>
-        
+        /// <returns> Throw CrushException when object cam colides</returns>
         public void Zblizenie()
         {
             double _x = this.Przewidzpozycje().Item1;
@@ -174,22 +243,28 @@ namespace PROJEKTLoty
                 }
             }
         }
-        private  void Start()//tick 10 s
+        /// <summary>
+        /// Function called at the start of flight
+        /// </summary>
+        private void Start()//tick 10 s
         {
             double time =10;//s
-            double skos=predkosc*time;
-            double changewys=Math.Round(Math.Sin(kat)*skos);
+            double skos=speed*time;
+            double changewys=Math.Round(Math.Sin(degree)*skos);
             z+=changewys;
-            if (z  > przelot)
-                z = przelot;
+            if (z  > passage)
+                z = passage;
             Transform();
             
         }
+        /// <summary>
+        /// Function called at the end of flight
+        /// </summary>
         private void Finish()
         {
             double time =10;//s
-            double skos=predkosc*time;
-            double changewys=Math.Round(Math.Sin(kat)*skos);
+            double skos=speed*time;
+            double changewys=Math.Round(Math.Sin(degree)*skos);
             if (z < 0)
             {
                 z = 0;
@@ -197,12 +272,12 @@ namespace PROJEKTLoty
             }
             else if (Odlfinish() < 8)
             {
-                Czy_wystartowal = false;
+                Is_started = false;
                 x = _Finish.X;
                 y = _Finish.Y;
                 z = 0;
                 _Start = _Finish;
-                _Finish = LosujLotnisko(Main.Lotniska);
+                _Finish = LosujLotnisko(Main.Aircrafts);
                 funkcja();
 
             }
@@ -211,10 +286,18 @@ namespace PROJEKTLoty
                 Transform();
             
         }
+        /// <summary>
+        /// text representation of the object
+        /// </summary>
+        /// <return>otext representation of the object</return>
         public override string ToString()
         {
             return "[ "+index+" ] from" + _Start.ToString() + " to " + _Finish.ToString();
         }
+        /// <summary>
+        /// return Colour of an object  marker
+        /// </summary>
+        /// <return> marker color</return>
         public virtual SolidColorBrush ReturnColor()
         {
             return  Brushes.Red;

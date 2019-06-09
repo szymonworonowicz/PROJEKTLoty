@@ -19,6 +19,9 @@ namespace PROJEKTLoty
     /// </summary>
     public partial class Legend : Window
     {
+        /// <summary>
+        /// Legend window Construktor
+        /// </summary>
         public Legend()
         {
             InitializeComponent();

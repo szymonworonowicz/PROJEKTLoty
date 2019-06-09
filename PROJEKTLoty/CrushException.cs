@@ -15,7 +15,7 @@ namespace PROJEKTLoty
         /// <param name="b">second object</param>
         public CrushException(FlyingObject a, FlyingObject b)
         {
-            Window1 window = new Window1(a, b);
+            CrushExceptionWindow window = new CrushExceptionWindow(a, b);
             window.ShowDialog();         
         }
     }

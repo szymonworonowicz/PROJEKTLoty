@@ -16,12 +16,17 @@ using System.Windows.Shapes;
 namespace PROJEKTLoty
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Main program Window 
     /// </summary>
     public partial class MainWindow : Window
     {
-
+        /// <summary>
+        /// Main class object
+        /// </summary>
         public Main start;
+        /// <summary>
+        /// MainWindow constructor
+        /// </summary>
         public MainWindow()
         {
 

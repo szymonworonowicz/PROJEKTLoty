@@ -31,6 +31,10 @@ namespace PROJEKTLoty
             Window();
             //Wyswietlmape();
         }
+
+        /// <summary>
+        /// Reading airfields and static objects from files
+        /// </summary>
         public void File()
         {
             try
@@ -88,6 +92,9 @@ namespace PROJEKTLoty
 
         //}
 
+            /// <summary>
+            /// Initiating flying object list
+            /// </summary>
         private void InicjalizacjaLotow()
         {
             Random rand = new Random();
@@ -119,6 +126,8 @@ namespace PROJEKTLoty
                 }
             }
         }
+
+
         public void Window()
         {
             Radar.Background = new SolidColorBrush(Colors.Black);
@@ -140,6 +149,8 @@ namespace PROJEKTLoty
             
             win.Left.Content = Radar;
         }
+
+
         public void Run()
         {
             while(start==true)

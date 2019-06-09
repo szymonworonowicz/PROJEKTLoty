@@ -10,15 +10,28 @@ namespace PROJEKTLoty
 {
     abstract class ObjektLatajacy
     {
+        // A wway to count how many tics therre are left for object to fly at elevated altitude
         private int ZmianaKursuTikCount = 0;
+        // Distance of approach which is assumed as hazardous
         protected double HazadrousDist = 0.5d;
+        // Objects speed
         protected int predkosc = 0;
+        // Objects position
         private double x,y,z;
+        // An angle at which object lands and starts as well as its flight altidute
         protected double kat, przelot;
         private double a_funkcja=0,b_funckja=0,kat_lotu=0,odl_ladowania=0;
         public double X { get => x; protected set=>x=value; }
         public double Y { get => y; protected set => y = value; }
+        // Airfields at which the object starts and ends
         protected Lotnisko _Start=null, _Finish=null;
+
+        /// <summary>
+        /// A constructor of flying object
+        /// </summary>
+        /// <param name="lotniska">Airfield list</param>
+        /// <param name="_kat">Angle of flight at start and end</param>
+        /// <param name="_przelot">Flight altitude at which the flying object will aim to stay</param>
         public ObjektLatajacy(List<Lotnisko> lotniska,double _kat,double _przelot)
         {
             _Start=LosujLotnisko(lotniska);
@@ -42,6 +55,12 @@ namespace PROJEKTLoty
             //funkcja();
 >>>>>>> parent of b007771... pozmieniano troche konstruktory , zlokalizowano blad z wypisywaniem
         }
+
+        /// <summary>
+        /// Randomly selects airfield
+        /// </summary>
+        /// <param name="lotniska">Airfield list</param>
+        /// <returns>Randomly chosen airfield</returns>
         protected  Lotnisko LosujLotnisko(List<Lotnisko> lotniska)
         {
             Random random = new Random();
@@ -56,7 +75,10 @@ namespace PROJEKTLoty
             return lotniska[i] ;
         }
         
-        public void Run()//transform pozycji
+        /// <summary>
+        /// Function for managing flight from start to end
+        /// </summary>
+        public void Run()
         {
             bool Czy_wystartowal = false;
             if (z < przelot && Czy_wystartowal==false)
@@ -70,7 +92,11 @@ namespace PROJEKTLoty
                 Finish();
 
         }
-        private void funkcja()//funkcja lotu gdy juz wlecial na przelot
+
+        /// <summary>
+        /// Function that runs as the flying object is at its flight altitude
+        /// </summary>
+        private void funkcja()
         {
             try
             {
@@ -83,22 +109,40 @@ namespace PROJEKTLoty
                 this.a_funkcja = 0d;
             }    
             this.b_funckja= (double)_Start.Y-a_funkcja* (double)_Start.X;
-            this.kat_lotu=Math.Atan(a_funkcja*(Math.PI/180));//bo radiany
+            this.kat_lotu=Math.Atan(a_funkcja*(Math.PI/180));//calculates in radians
         }
+
+        /// <summary>
+        /// The same as Transform() but has shorter name
+        /// </summary>
         private void Lot()
         {
                 Transform();
         }
+
+        /// <summary>
+        /// Calculates distance from starting point to the end
+        /// </summary>
+        /// <returns>Distance from starting point to the end</returns>
         private double OdlLotniska()
         {
             return Math.Round(Math.Sqrt(Math.Pow(_Start.X-_Finish.X,2)+Math.Pow(_Start.Y-_Finish.Y,2)),3)*100;
         }
+
+        /// <summary>
+        /// Function that checks distance from landing
+        /// </summary>
+        /// <returns>Returns true if the remaining distance is less than previously set landing distance, otherwise it returns false</returns>
         private bool OdlodLadowania()
         {
             if(Math.Sqrt(Math.Pow(this.x-_Finish.X,2)+Math.Pow(this.y-_Finish.Y,2))<odl_ladowania)
                 return true;
             return false;
         }
+
+        /// <summary>
+        /// Function that is responsible for updating flying object variables
+        /// </summary>
         private void Transform()
         {
             if (ZmianaKursuTikCount > 0)
@@ -157,7 +201,7 @@ namespace PROJEKTLoty
         /// <summary>
         /// Gives predicted position 3 ticks in the future
         /// </summary>
-        /// <param name="objekt">Flying object of which future position we seek and Yoda it sounds kind of like :-P</param>
+        /// <param name="objekt">Flying object of which future position we seek</param>
         /// <returns>Predicted position</returns>
         public Tuple<int,int> Przewidzpozycje()
         {
@@ -168,18 +212,18 @@ namespace PROJEKTLoty
         }
 
         /// <summary>
-        /// Reaguje na zbliżenie które jast przewidziane na za 3 tiki
+        /// Reacts to approach in 3 tics
         /// </summary>
-        /// <param name="flying">lista obiektów latających</param>
+        /// <param name="flying">Flying object list</param>
         public void Zblizenie(LinkedList<ObjektLatajacy> flying)
         {
             double _x = this.Przewidzpozycje().Item1;
             double _y = this.Przewidzpozycje().Item2;
 
-            //zmiana awaryjna kursu
+            //Emergency course change
             foreach (ObjektLatajacy avio in flying)
             {
-                //żeby samego siebie nie liczyło
+                //So it doesn't check itself
                 if (avio != this)
                 {
                     double distance = Math.Sqrt(Math.Pow(Math.Sqrt(Math.Pow(_x - avio.Przewidzpozycje().Item1, 2) + Math.Pow(_y - avio.Przewidzpozycje().Item2, 2)), 2) + Math.Pow(this.z - avio.z, 2));
@@ -190,10 +234,10 @@ namespace PROJEKTLoty
         }
 
         /// <summary>
-        /// Zmiana kursu poprzez wzlot wyżej
+        /// Changing a course of flight by getting higher
         /// </summary>
-        /// <param name="avio">Obiekt z którym przewidziane jest zbliżenie</param>
-        /// <param name="choice">True to zmiana kursu obiektu wywołującego funkcję a false to zmiana kursu samolotym z którym zbliżenie jest przewidziane</param>
+        /// <param name="avio">The object with which the approach is predicted</param>
+        /// <param name="choice">True means chnging a course of object that called the function, false changess course of an object with which the approach has been predisted</param>
         public void Jakzmienickurs(ObjektLatajacy avio, bool choice)
         {
             if(choice)
@@ -209,7 +253,9 @@ namespace PROJEKTLoty
 
         }
 
-
+        /// <summary>
+        /// Function called at the start of flight
+        /// </summary>
         private  void Start()//tick 20 s
         {
             double time =20;//s
@@ -219,6 +265,10 @@ namespace PROJEKTLoty
             Transform();
             
         }
+
+        /// <summary>
+        /// Function called at the end of flight
+        /// </summary>
         private void Finish()
         {
             double time =20;//s

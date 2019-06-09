@@ -9,6 +9,7 @@ namespace PROJEKTLoty
 {
     class Lotnisko
     {
+        // X coordinate of airfield
         private int x;
         public int X
         {
@@ -21,6 +22,8 @@ namespace PROJEKTLoty
                 x = value;
             }
         }
+
+        // Y coordinate of airfield
         private int y;
         public int Y
         {
@@ -33,8 +36,19 @@ namespace PROJEKTLoty
                 y = value;
             }
         }
+
+        // Name of an airfield
         public string nazwa;
-        public Brush kolor = Brushes.Purple;//kolor znaczka
+
+        // Colour of an airfield marker
+        public Brush kolor = Brushes.Purple;
+
+        /// <summary>
+        /// Airfields constructor
+        /// </summary>
+        /// <param name="_x">The X coordinate</param>
+        /// <param name="_y">The Y coordinate</param>
+        /// <param name="_nazwa">Name of an airfield</param>
         public Lotnisko(int _x,int _y,string _nazwa)
         {
             this.X = _x;
@@ -47,7 +61,7 @@ namespace PROJEKTLoty
         }
         public Lotnisko(Lotnisko lotnisko)
         {
-
+             
         }
     }
 }
